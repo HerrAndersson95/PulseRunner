@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewTrackActivity" />
-        <activity android:name=".RunActivity"></activity>
+        <activity android:name=".RunActivity" />
+        <activity android:name=".StatisticsActivity"></activity>
     </application>
 
 </manifest>

@@ -32,5 +32,15 @@
             android:layout_height="wrap_content"
             android:onClick="onClickNewTrack"
             android:text="@string/btn_main_newtrack" />
+
+        <Button
+            android:id="@+id/button_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickStatistics"
+            android:text="@string/btn_main_statistics"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="138dp" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

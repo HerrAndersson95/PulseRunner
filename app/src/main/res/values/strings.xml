@@ -3,4 +3,8 @@
     <string name="btn_main_run">Start run</string>
     <string name="btn_main_newtrack">New track</string>
     <string name="RADICAL">RADATAT</string>
+    <string name="btn_main_statistics">Statistics</string>
+    <string name="header_newtrack">New Track</string>
+    <string name="header_run">Run</string>
+    <string name="header_statistics">Statistics</string>
 </resources>
