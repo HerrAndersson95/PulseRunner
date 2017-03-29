@@ -9,24 +9,26 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp">
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="8dp"
+        app:layout_constraintHorizontal_bias="0.5">
 
         <Button
             android:id="@+id/btn_run"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/btn_main_run" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_newtrack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/btn_main_newtrack" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
