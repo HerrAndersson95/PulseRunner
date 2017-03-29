@@ -23,12 +23,14 @@
             android:id="@+id/btn_run"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickRun"
             android:text="@string/btn_main_run" />
 
         <Button
             android:id="@+id/btn_newtrack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickNewTrack"
             android:text="@string/btn_main_newtrack" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

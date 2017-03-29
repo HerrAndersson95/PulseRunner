@@ -12,14 +12,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    /*
+
     public void onClickRun(View v){
-        Intent intent = new Intent(this, CompassActivity.class);
+        Intent intent = new Intent(this, RunActivity.class);
         startActivity(intent);
     }
+
     public void onClickNewTrack(View v){
-        Intent intent = new Intent(this, CompassActivity.class);
+        Intent intent = new Intent(this, NewTrackActivity.class);
         startActivity(intent);
     }
-    */
+
 }
