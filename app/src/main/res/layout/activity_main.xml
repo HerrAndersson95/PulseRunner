@@ -7,56 +7,137 @@
     android:layout_weight="1"
     tools:context="mamn10grupp10.pulserunner.MainActivity">
 
-    <LinearLayout
+    <ViewFlipper
+        android:id="@+id/bckgrndViewFlipper1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="vertical"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btn_run"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
-            android:onClick="onClickRun"
-            android:text="@string/btn_main_run"
-            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/bckgrndImageView5"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s5"
+            tools:ignore="ContentDescription" />
 
-        <Button
-            android:id="@+id/btn_newtrack"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/bckgrndImageView6"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s6" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView7"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s7" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView8"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s8" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView9"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s9" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView10"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s10" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s1" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s2" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s3" />
+
+        <ImageView
+            android:id="@+id/bckgrndImageView4"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/s4" />
+
+    </ViewFlipper>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp">
+
+
+        <ImageButton
+            android:id="@+id/imageButton15"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/holo_green_light"
+            android:adjustViewBounds="false"
+            android:background="@color/colorTransparentPrimary"
+            android:elevation="0dp"
             android:onClick="onClickNewTrack"
-            android:text="@string/btn_main_newtrack"
-            android:textSize="18sp" />
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/track_logo" />
 
-        <Button
-            android:id="@+id/button_statistics"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/imageButton16"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/holo_orange_light"
+            android:layout_weight="0.89"
+            android:background="@color/colorTransparentPrimaryDark"
+            android:onClick="onClickRun"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/main_logo" />
+
+        <ImageButton
+            android:id="@+id/imageButton17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparentPrimary"
             android:onClick="onClickStatistics"
-            android:text="@string/btn_main_statistics"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="56dp"
-            tools:layout_editor_absoluteY="138dp" />
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/stat_logo" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

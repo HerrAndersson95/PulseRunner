@@ -7,4 +7,7 @@
     <string name="header_newtrack">New Track</string>
     <string name="header_run">Run</string>
     <string name="header_statistics">Statistics</string>
+    <string name="current_time">00:00:00</string>
+    <string name="input_name_of_route">Enter name for the route here..</string>
+    <string name="input_name_of_runner">Enter name of the runner here..</string>
 </resources>

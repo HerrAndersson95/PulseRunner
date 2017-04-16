@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".NewTrackActivity" />
         <activity android:name=".RunActivity" />
-        <activity android:name=".StatisticsActivity"></activity>
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".NewTrackRunning" />
+        <activity android:name=".NewTrackPause" />
+        <activity android:name=".NewTrackDone"></activity>
     </application>
 
 </manifest>
