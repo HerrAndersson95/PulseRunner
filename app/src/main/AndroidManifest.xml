@@ -18,17 +18,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewTrackActivity" android:parentActivityName=".MainActivity" />
-        <activity android:name=".RunActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".StatisticsActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".NewTrackRunning"/>
-        <activity android:name=".NewTrackPause" android:parentActivityName=".NewTrackRunning"/>
+        <activity
+            android:name=".NewTrackActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RunActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".StatisticsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".NewTrackRunning" />
+        <activity
+            android:name=".NewTrackPause"
+            android:parentActivityName=".NewTrackRunning" />
         <activity android:name=".NewTrackDone" />
         <activity android:name=".RunActivityTreadmillRunning" />
-        <activity android:name=".RunActivityTreadmillPause" android:parentActivityName=".RunActivityRunning"/>
+        <activity
+            android:name=".RunActivityTreadmillPause"
+            android:parentActivityName=".RunActivityRunning" />
         <activity android:name=".RunActivityRunning" />
-        <activity android:name=".RunActivityPause" />
-        <activity android:name=".RunActivityTreadmill" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".RunActivityPause"
+            android:parentActivityName=".RunActivityRunning"/>
+        <activity
+            android:name=".RunActivityTreadmill"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".RunActivityFinish"></activity>
     </application>
 
 </manifest>
