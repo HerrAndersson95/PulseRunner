@@ -18,12 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewTrackActivity" />
-        <activity android:name=".RunActivity" />
-        <activity android:name=".StatisticsActivity" />
-        <activity android:name=".NewTrackRunning" />
-        <activity android:name=".NewTrackPause" />
-        <activity android:name=".NewTrackDone"></activity>
+        <activity android:name=".NewTrackActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name=".RunActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".StatisticsActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".NewTrackRunning"/>
+        <activity android:name=".NewTrackPause" android:parentActivityName=".NewTrackRunning"/>
+        <activity android:name=".NewTrackDone" />
+        <activity android:name=".RunActivityTreadmillRunning" />
+        <activity android:name=".RunActivityTreadmillPause" android:parentActivityName=".RunActivityRunning"/>
+        <activity android:name=".RunActivityRunning" />
+        <activity android:name=".RunActivityPause" />
+        <activity android:name=".RunActivityTreadmill" android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

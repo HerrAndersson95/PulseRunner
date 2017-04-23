@@ -7,4 +7,6 @@
     <color name="colorTransparentPrimaryDark">#bc206179</color>
     <color name="colorTransparentRed">#bc79203f</color>
     <color name="colorTransparentYellow">#bcb5b331</color>
+    <color name="colorTransparentGreen">#bc61a26c</color>
+    <color name="colorTransparentDark">#bc5a6265</color>
 </resources>

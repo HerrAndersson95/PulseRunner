@@ -11,6 +11,7 @@ public class NewTrackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClickRun(View v){

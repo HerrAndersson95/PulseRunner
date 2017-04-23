@@ -8,6 +8,16 @@
     <string name="header_run">Run</string>
     <string name="header_statistics">Statistics</string>
     <string name="current_time">00:00:00</string>
+    <string name="diff_time">00:00:00</string>
     <string name="input_name_of_route">Enter name for the route here..</string>
     <string name="input_name_of_runner">Enter name of the runner here..</string>
+    <string name="input_avg_speed">5 km/h</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="choose_avg_speed">Choose avarage speed:</string>
+    <string name="pulseRunner">Pulse Runner</string>
+    <string name="treadmillMode">Treadmill Mode</string>
+    <string name="selectTrack">Select Track:</string>
+    <string name="selectTime">Select Time:</string>
+    <string name="start">Start</string>
 </resources>
