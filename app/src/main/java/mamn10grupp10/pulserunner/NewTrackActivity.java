@@ -20,6 +20,7 @@ public class NewTrackActivity extends AppCompatActivity {
     Button finish;
     StopWatch stopwatch;
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track);
@@ -28,7 +29,7 @@ public class NewTrackActivity extends AppCompatActivity {
         handler = new Handler();
 
         displayTime = (TextView) findViewById(R.id.runTime);
-        displayTitle = (TextView) findViewById(R.id.newTrackTitle);
+        displayTitle = (TextView) findViewById(R.id.RunnerTitle);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
@@ -52,6 +53,9 @@ public class NewTrackActivity extends AppCompatActivity {
             }
         };
 
+
+
+        /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(!onOffTime.isChecked()){
@@ -65,20 +69,21 @@ public class NewTrackActivity extends AppCompatActivity {
                 handler.post(updater);
             }
         });
-
-        stop.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               createDialog();
-            }
-        });
-
-        finish.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setContentView(R.layout.activity_new_track_done);
-            }
-        });
     }
 
+    public void onClickStop(View v){
+        createDialog();
+    }
+
+    public void onClickFinish(View v){
+        Intent intent = new Intent(this, NewTrackDone.class);
+        startActivity(intent);
+    }
+
+    /* Creates a dialog with a message that is asking the user if he/she really want to stop
+    * the current run. If Yes, the user will return to the main menu. If no, the uset till return
+    * to the current run again and the time wont be reflected, since it is still running in
+    * the background*/
     public void createDialog(){
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
         alertDlg.setMessage("Your newly created track will be lost, are you sure?");
@@ -101,5 +106,4 @@ public class NewTrackActivity extends AppCompatActivity {
         });
         alertDlg.create().show();
     }
-
 }

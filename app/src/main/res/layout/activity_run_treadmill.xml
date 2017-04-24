@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/colorTransparentDark"
-            android:onClick="onClickPulseMode"
+            android:onClick="onClickPulseRunner"
             android:text="@string/pulseRunner"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
