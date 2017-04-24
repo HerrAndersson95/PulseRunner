@@ -19,7 +19,7 @@
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/timerMs"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -167,7 +167,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/timerMs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.10"
