@@ -39,11 +39,12 @@
         <activity android:name=".RunActivityRunning" />
         <activity
             android:name=".RunActivityPause"
-            android:parentActivityName=".RunActivityRunning"/>
+            android:parentActivityName=".RunActivityRunning" />
         <activity
             android:name=".RunActivityTreadmill"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".RunActivityFinish"></activity>
+        <activity android:name=".RunActivityFinish" />
+        <activity android:name=".RunActivityTreadmillFinish"></activity>
     </application>
 
 </manifest>

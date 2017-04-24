@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class RunActivityTreadmill extends AppCompatActivity {
-    public int speed = 5;
+    public static int speed = 5;
     private TextView tw;
 
     @Override
@@ -21,11 +21,14 @@ public class RunActivityTreadmill extends AppCompatActivity {
 
     public void onClickStart(View v){
         Intent intent = new Intent(this, RunActivityTreadmillRunning.class);
+        intent.putExtra("speed",speed);
         startActivity(intent);
     }
 
+
     public void onClickPulseRunner(View v){
-        Intent intent = new Intent(this, RunActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RunActivity.class);
+        intent.putExtra("speed",speed);
         startActivity(intent);
     }
 

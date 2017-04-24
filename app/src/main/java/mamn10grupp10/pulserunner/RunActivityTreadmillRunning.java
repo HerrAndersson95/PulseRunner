@@ -6,13 +6,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class RunActivityTreadmillRunning extends AppCompatActivity {
+    private int speed;
+    private TextView tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
+        tw = (TextView) findViewById(R.id.avgSpeed);
+        Intent intent = getIntent();
+        speed = intent.getIntExtra("speed",0);
+        tw.setText(speed + " km/h");
+    }
+
+    public void onClickFinish(View v){
+        Intent intent = new Intent(this, RunActivityTreadmillFinish.class);
+        startActivity(intent);
     }
 
     //Stop
@@ -50,7 +62,23 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         alertDlg.create().show();
     }
 
+    public void onClickPlus(View v){
+        System.out.println(speed + " km/h");
 
+        if(speed<50){
+            speed++;
+            //tw.setText("Yes");
+            tw.setText(speed + " km/h");
+        }
+        System.out.println(speed + " km/h");
+    }
+
+    public void onClickMinus(View v){
+        if(speed>1){
+            speed--;
+            tw.setText(speed + " km/h");
+        }
+    }
 
 
 }
