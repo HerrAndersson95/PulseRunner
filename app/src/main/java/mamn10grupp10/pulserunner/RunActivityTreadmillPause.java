@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 
 public class RunActivityTreadmillPause extends AppCompatActivity {
+    private int speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_pause);
+        Intent intent = getIntent();
+        speed = intent.getIntExtra("speed",0);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -47,6 +50,7 @@ public class RunActivityTreadmillPause extends AppCompatActivity {
     //Continue
     public void onClickRun(View v){
         Intent intent = new Intent(this, RunActivityTreadmillRunning.class);
+        intent.putExtra("speed",speed);
         startActivity(intent);
     }
 }

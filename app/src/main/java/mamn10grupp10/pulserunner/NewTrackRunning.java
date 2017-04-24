@@ -7,13 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+
 public class NewTrackRunning extends AppCompatActivity {
+
+    public NewTrackRunning() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track_running);
+
     }
+
 
     //Stop
     public void onClickStop(View v){

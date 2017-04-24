@@ -4,39 +4,49 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class RunActivityTreadmill extends AppCompatActivity {
-    public String avg_speed_txt = getString(R.string.input_avg_speed);
-    public int speed = 5;
+    public static int speed = 5;
+    private TextView tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tw = (TextView) findViewById(R.id.avgSpeed);
+        tw.setText(speed + " km/h");
     }
 
     public void onClickStart(View v){
         Intent intent = new Intent(this, RunActivityTreadmillRunning.class);
+        intent.putExtra("speed",speed);
         startActivity(intent);
     }
+
 
     public void onClickPulseRunner(View v){
-        Intent intent = new Intent(this, RunActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RunActivity.class);
+        intent.putExtra("speed",speed);
         startActivity(intent);
     }
 
-    public void onClickPlus(){
+    public void onClickPlus(View v){
+        System.out.println(speed + " km/h");
+
         if(speed<50){
             speed++;
-            avg_speed_txt = speed+" km/h";
+            //tw.setText("Yes");
+            tw.setText(speed + " km/h");
         }
+        System.out.println(speed + " km/h");
     }
 
-    public void onClickMinus(){
+    public void onClickMinus(View v){
         if(speed>1){
             speed--;
-            avg_speed_txt = speed+" km/h";
+            tw.setText(speed + " km/h");
         }
     }
 
