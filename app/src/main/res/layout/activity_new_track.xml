@@ -71,7 +71,7 @@
                     android:id="@+id/button"
                     android:layout_width="259dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorTransparentPrimaryDark"
+                    android:backgroundTint="@color/colorTransparentPrimaryDark"
                     android:onClick="onClickRun"
                     android:text="Start"
                     android:textAllCaps="false"
