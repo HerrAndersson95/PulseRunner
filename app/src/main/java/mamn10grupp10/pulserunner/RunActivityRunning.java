@@ -40,10 +40,16 @@ public class RunActivityRunning extends AppCompatActivity {
     private final long[] closeer = {0, 200, 800};
     private final long[] closest = {0, 200, 200};
 
+    private Vibrator vib;
+    private long[] vibPattern;
+    private final long[] close = {0, 200, 1500};
+    private final long[] closeer = {0, 200, 800};
+    private final long[] closest = {0, 200, 200};
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
-
+        
         timeunit = 10;
         newtrack = new ArrayList<>();
 

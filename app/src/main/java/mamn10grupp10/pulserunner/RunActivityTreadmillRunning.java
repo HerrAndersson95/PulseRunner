@@ -40,14 +40,24 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     private final long[] closeer = {0,200,800};
     private final long[] closest = {0,200,200};
 
+    /*Varibles for Vib*/
+    private Vibrator vib;
+    long[] vibPattern;
+    private final long[] close = {0,200,1500};
+    private final long[] closeer = {0,200,800};
+    private final long[] closest = {0,200,200};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
 
+<<<<<<< HEAD
         timeunit = 10;
         mySpeed = 0;
 
+=======
+>>>>>>> origin/master
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         stopwatch = new StopWatch();
@@ -91,7 +101,14 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             }
         };
 
+        /*Lägg till om det gått mer än 10 sec*/
+        if(true){
 
+<<<<<<< HEAD
+=======
+        }
+
+>>>>>>> origin/master
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -179,4 +196,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         });
         alertDlg.create().show();
     }
+
+
 }
