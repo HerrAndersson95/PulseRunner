@@ -1,8 +1,10 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +21,15 @@ public class NewTrackActivity extends AppCompatActivity {
     Button stop;
     Button finish;
     StopWatch stopwatch;
+    int timeunit;
+    private Vibrator vibrator;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track);
+
+        timeunit = 10;
 
         stopwatch = new StopWatch();
         handler = new Handler();
@@ -37,6 +43,8 @@ public class NewTrackActivity extends AppCompatActivity {
         stop = (Button) findViewById(R.id.btnStop);
         finish = (Button) findViewById(R.id.btnFinish);
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         final Runnable updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {
@@ -47,12 +55,16 @@ public class NewTrackActivity extends AppCompatActivity {
                         finish.setVisibility(View.VISIBLE);
                     }
                     String elapsedTime = stopwatch.getTimeElapsedAsString();
+                    long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
-                    handler.postDelayed(this, 30);
+                    handler.postDelayed(this, 100);
+                    if((elapsedTimeLong/1000) % timeunit == 0){
+                        vibrator.vibrate(10);
+                        vibrator.cancel();
+                    }
                 }
             }
         };
-
 
 
         /*Start/Pause/Continue-button */
@@ -76,6 +88,7 @@ public class NewTrackActivity extends AppCompatActivity {
     }
 
     public void onClickFinish(View v){
+        stopwatch.pause();
         Intent intent = new Intent(this, NewTrackDone.class);
         startActivity(intent);
     }
@@ -93,7 +106,6 @@ public class NewTrackActivity extends AppCompatActivity {
         alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 startActivity(popUpintent);
             }
         });

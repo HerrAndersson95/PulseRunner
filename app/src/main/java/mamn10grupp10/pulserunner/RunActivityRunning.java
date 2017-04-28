@@ -83,7 +83,7 @@ public class RunActivityRunning extends AppCompatActivity {
     * the background*/
     public void createDialog(){
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
-        alertDlg.setMessage("Your current  track will be lost, are you sure?");
+        alertDlg.setMessage("Your current track will be lost, are you sure?");
         alertDlg.setCancelable(false);
         final Intent popUpintent = new Intent(this, MainActivity.class);
 

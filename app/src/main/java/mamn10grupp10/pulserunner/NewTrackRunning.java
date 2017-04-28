@@ -51,7 +51,6 @@ public class NewTrackRunning extends AppCompatActivity {
                 startActivity(popUpintent);
             }
         });
-
         alertDlg.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -60,6 +59,4 @@ public class NewTrackRunning extends AppCompatActivity {
         });
         alertDlg.create().show();
     }
-
-
 }
