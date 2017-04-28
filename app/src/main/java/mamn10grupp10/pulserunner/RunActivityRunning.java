@@ -1,8 +1,10 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +22,17 @@ public class RunActivityRunning extends AppCompatActivity {
     Button finish;
     StopWatch stopwatch;
 
+    private Vibrator vib;
+    private long[] vibPattern;
+    private final long[] close = {0, 200, 1500};
+    private final long[] closeer = {0, 200, 800};
+    private final long[] closest = {0, 200, 200};
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
+
+        vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         stopwatch = new StopWatch();
         handler = new Handler();
@@ -55,11 +65,10 @@ public class RunActivityRunning extends AppCompatActivity {
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!onOffTime.isChecked()){
+                if (!onOffTime.isChecked()) {
                     stopwatch.pause();
                     displayTitle.setText("Paused");
-                }
-                else{
+                } else {
                     stopwatch.resume();
                     displayTitle.setText("Running");
                 }
@@ -68,11 +77,11 @@ public class RunActivityRunning extends AppCompatActivity {
         });
     }
 
-    public void onClickStop(View v){
+    public void onClickStop(View v) {
         createDialog();
     }
 
-    public void onClickFinish(View v){
+    public void onClickFinish(View v) {
         Intent intent = new Intent(this, RunActivityFinish.class);
         startActivity(intent);
     }
@@ -81,7 +90,7 @@ public class RunActivityRunning extends AppCompatActivity {
     * the current run. If Yes, the user will return to the main menu. If no, the uset till return
     * to the current run again and the time wont be reflected, since it is still running in
     * the background*/
-    public void createDialog(){
+    public void createDialog() {
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
         alertDlg.setMessage("Your current track will be lost, are you sure?");
         alertDlg.setCancelable(false);
@@ -102,5 +111,32 @@ public class RunActivityRunning extends AppCompatActivity {
             }
         });
         alertDlg.create().show();
+    }
+
+    /*The vib pattern will be set accordingly to the percentage of the track
+    * Compares the saved tracks meters towards what you've ran yourself*/
+    public void setVibPattern(int thisTrackMeter, int savedTrackMeter) {
+        double diff = thisTrackMeter - savedTrackMeter;
+        /*If you are behind*/
+        if (diff < 0) {
+            double percentage = thisTrackMeter % savedTrackMeter;
+            if (percentage > 90) {
+                vib.vibrate(closest, 0);
+            }
+
+            /*Els you are ahead*/
+        } else {
+            double percentage = thisTrackMeter % savedTrackMeter;
+            if (percentage < 10) {
+                vib.vibrate(closest, 0);
+            } else if (percentage < 20) {
+                vib.vibrate(closeer, 0);
+            } else if (percentage < 40) {
+                vib.vibrate(close, 0);
+            } else {
+                vib.cancel();
+            }
+
+        }
     }
 }

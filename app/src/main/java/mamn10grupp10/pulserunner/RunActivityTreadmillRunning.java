@@ -1,8 +1,10 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +14,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class RunActivityTreadmillRunning extends AppCompatActivity {
+    /*Varibles for speed*/
     private int speed = 5;
+    private double myAvgSpeed;
+    private int totMeters = 0;
+
     private TextView tw;
     TextView displayTitle;
     TextView displayTime;
@@ -22,10 +28,20 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     Button finish;
     StopWatch stopwatch;
 
+    /*Varibles for Vib*/
+    private Vibrator vib;
+    long[] vibPattern;
+    private final long[] close = {0,200,1500};
+    private final long[] closeer = {0,200,800};
+    private final long[] closest = {0,200,200};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
+
+        vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         stopwatch = new StopWatch();
         handler = new Handler();
 
@@ -59,7 +75,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             }
         };
 
+        /*Lägg till om det gått mer än 10 sec*/
+        if(true){
 
+        }
 
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +132,29 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             tw.setText(speed + " km/h");
         }
     }
+
+    /*Sets the vibration according to if you are keeping the avg speed u want.
+    * The more freq vibrations indicate on the further away from your avg speed
+    * So hurry up!*/
+    public void setVibPattern(){
+        if(myAvgSpeed > speed){
+            vib.cancel();
+        } else{
+            double percentage = myAvgSpeed % speed;
+            if(percentage > 75){
+                vib.vibrate(close,0);
+            }else if(percentage > 50){
+                vib.vibrate(closeer,0);
+            }else {
+                vib.vibrate(closest,0);
+            }
+        }
+    }
+
+    public double getMyAvgSpeed(int totalMeters, int totalSecs ){
+        return totalMeters/totalSecs;
+    }
+
     public void createDialog(){
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
         alertDlg.setMessage("Exit Treadmill Mode?");
@@ -135,4 +177,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         });
         alertDlg.create().show();
     }
+
+
 }
