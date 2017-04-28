@@ -14,11 +14,11 @@ public class CalculationManager {
         currentDistance = 0;
     }
 
-    public double getTotalLength(){
+    public double getTotalDistance(){
         return totalDistance;
     }
 
-    public double getDistance(long oldX, long oldY, long newX, long newY){     // generally used geo measurement function
+    public double getCurrentDistance(double oldX, double oldY, double newX, double newY){     // generally used geo measurement function
             double radiusEarth = 6378.137;                                                // Radius of earth in KM
             double diffX = newX * Math.PI / 180 - oldX * Math.PI / 180;
             double diffY = newY * Math.PI / 180 - oldY * Math.PI / 180;
@@ -28,16 +28,22 @@ public class CalculationManager {
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             double d = radiusEarth * c;
             currentDistance =  d * 1000; // meters
+            totalDistance = totalDistance + currentDistance;
             return currentDistance;
     }
 
-    public void addCurrentDistance(){
-        totalDistance = totalDistance + currentDistance;
+    public double getDistanceDifference(double distanceNew, double distanceOld){
+        return distanceNew - distanceOld;
     }
 
-    public double getCurrentSpeed(double time) {
+    public double getCurrentSpeedKm(double time) {
         double meterpersecound = currentDistance / time;
         double kilometerperhour = meterpersecound * 3.6;
         return kilometerperhour;
     }
+
+    public double getSpeedDifferenceKm(double time, double distanceNew, double distanceOld){
+        return ((distanceNew/time) - (distanceOld/time)) * 3.6;
+    }
+
 }

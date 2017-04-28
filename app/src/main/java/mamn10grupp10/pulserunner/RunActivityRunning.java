@@ -1,8 +1,11 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,30 +14,49 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 public class RunActivityRunning extends AppCompatActivity {
     TextView displayTitle;
     TextView displayTime;
+    TextView displayTest;
     Handler handler;
     ToggleButton onOffTime;
     Button stop;
     Button finish;
     StopWatch stopwatch;
+    CalculationManager manager;
+    int timeunit;
+    Vibrator vibrator;
+    ArrayList<Double> newtrack;
+    double a = 10;
+    double b = 2;
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
 
+        timeunit = 10;
+        newtrack = new ArrayList<>();
+
         stopwatch = new StopWatch();
         handler = new Handler();
+        manager = new CalculationManager();
 
         displayTime = (TextView) findViewById(R.id.runTime);
         displayTitle = (TextView) findViewById(R.id.RunnerTitle);
+        displayTest = (TextView) findViewById(R.id.textDifference);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
 
         stop = (Button) findViewById(R.id.btnStop);
         finish = (Button) findViewById(R.id.btnFinish);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 
         final Runnable updater = new Runnable() {
             public void run() {
@@ -46,11 +68,26 @@ public class RunActivityRunning extends AppCompatActivity {
                         finish.setVisibility(View.VISIBLE);
                     }
                     String elapsedTime = stopwatch.getTimeElapsedAsString();
+                    long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
-                    handler.postDelayed(this, 30);
+                    handler.postDelayed(this, 100);
+                    if((elapsedTimeLong/100) % (timeunit*10) == 0){
+                        double distDiff = manager.getDistanceDifference(a,b);
+                        if (distDiff <0){
+                            displayTest.setTextColor(Color.argb(188, 121, 32, 63));
+                            displayTest.setText("- " + Math.abs(distDiff) + " m");
+
+                        }else{
+                            displayTest.setTextColor(Color.argb(188, 97, 162, 108));
+                            displayTest.setText("+ " + (distDiff) + " m");
+                        }
+                        a -= 1;
+                        b += 3;
+                    }
                 }
             }
         };
+
 
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,7 @@ package mamn10grupp10.pulserunner;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -13,29 +14,40 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 public class NewTrackActivity extends AppCompatActivity {
     TextView displayTitle;
     TextView displayTime;
+    TextView displayTest;
     Handler handler;
     ToggleButton onOffTime;
     Button stop;
     Button finish;
     StopWatch stopwatch;
+    CalculationManager manager;
     int timeunit;
-    private Vibrator vibrator;
-
+    Vibrator vibrator;
+    ArrayList<Double> newtrack;
+    double a = 10;
+    double b = 2;
+    double distDiff;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track);
 
         timeunit = 10;
+        newtrack = new ArrayList<>();
+        distDiff = 0;
 
         stopwatch = new StopWatch();
         handler = new Handler();
+        manager = new CalculationManager();
 
         displayTime = (TextView) findViewById(R.id.runTime);
         displayTitle = (TextView) findViewById(R.id.RunnerTitle);
+        displayTest = (TextView) findViewById(R.id.testText);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
@@ -58,9 +70,9 @@ public class NewTrackActivity extends AppCompatActivity {
                     long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
-                    if((elapsedTimeLong/1000) % timeunit == 0){
-                        vibrator.vibrate(10);
-                        vibrator.cancel();
+                    if((elapsedTimeLong/100) % (timeunit*10) == 0){
+                        displayTest.setText(distDiff + " m");
+                        distDiff ++;
                     }
                 }
             }
@@ -119,3 +131,15 @@ public class NewTrackActivity extends AppCompatActivity {
         alertDlg.create().show();
     }
 }
+
+
+/*
+double a = 56.773;
+                        manager.getDistance(a, a, a ,a);
+                        a ++;
+                        displayTest.setText(Double.toString(manager.getDistanceDifference(a, a-1)));
+                        double length = manager.getTotalLength();
+                        newtrack.add(length);
+
+
+* */
