@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 
 public class WriteToFile  extends AppCompatActivity {
@@ -30,7 +31,20 @@ public class WriteToFile  extends AppCompatActivity {
 
             }
         }
+
+    /*Input the trackName, the runnerName and the arraylist of diffs (meters)
+    * Creates StringBuillder and returns a strin with seperation of "\n", new line.*/
+    public String createStringFile(String trackName, String runnerName, ArrayList<Double> listOfDiffs){
+        StringBuilder sb = new StringBuilder();
+        sb.append(trackName+"\n");
+        sb.append(runnerName+"\n");
+        for(double value : listOfDiffs) {
+            sb.append(value+"\n");
+        }
+        return sb.toString();
     }
+}
+
 
 
 

@@ -19,19 +19,20 @@ import java.util.ArrayList;
 public class NewTrackActivity extends AppCompatActivity {
     TextView displayTitle;
     TextView displayTime;
-    TextView displayTest;
-    Handler handler;
+    TextView displayValue;
+
     ToggleButton onOffTime;
     Button stop;
     Button finish;
+
+    Handler handler;
     StopWatch stopwatch;
     CalculationManager manager;
+
     int timeunit;
+    double distDiff;
     Vibrator vibrator;
     ArrayList<Double> newtrack;
-    double a = 10;
-    double b = 2;
-    double distDiff;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class NewTrackActivity extends AppCompatActivity {
 
         displayTime = (TextView) findViewById(R.id.runTime);
         displayTitle = (TextView) findViewById(R.id.RunnerTitle);
-        displayTest = (TextView) findViewById(R.id.testText);
+        displayValue = (TextView) findViewById(R.id.testText);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
@@ -71,7 +72,7 @@ public class NewTrackActivity extends AppCompatActivity {
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-                        displayTest.setText(distDiff + " m");
+                        displayValue.setText(distDiff + " m");
                         distDiff ++;
                     }
                 }

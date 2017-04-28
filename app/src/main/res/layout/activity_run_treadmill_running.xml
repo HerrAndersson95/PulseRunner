@@ -158,4 +158,18 @@
             android:visibility="invisible" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/speedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="64dp"
+        android:text="0 km/h"
+        android:textColor="@color/colorTransparentGreen"
+        android:textSize="60sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avgSpeed" />
+
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@ package mamn10grupp10.pulserunner;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -22,11 +23,15 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     private TextView tw;
     TextView displayTitle;
     TextView displayTime;
+    TextView displayValue;
     Handler handler;
+    CalculationManager manager;
     ToggleButton onOffTime;
     Button stop;
     Button finish;
     StopWatch stopwatch;
+    double timeunit;
+    double mySpeed;
 
     /*Varibles for Vib*/
     private Vibrator vib;
@@ -40,13 +45,19 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
 
+        timeunit = 10;
+        mySpeed = 0;
+
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         stopwatch = new StopWatch();
         handler = new Handler();
+        manager = new CalculationManager();
+
 
         displayTime = (TextView) findViewById(R.id.runTime);
         displayTitle = (TextView) findViewById(R.id.RunnerTitle);
+        displayValue = (TextView) findViewById(R.id.speedText);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
@@ -69,16 +80,17 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                         finish.setVisibility(View.VISIBLE);
                     }
                     String elapsedTime = stopwatch.getTimeElapsedAsString();
+                    long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
-                    handler.postDelayed(this, 30);
+                    handler.postDelayed(this, 100);
+                    if((elapsedTimeLong/100) % (timeunit*10) == 0){
+                        displayValue.setText(mySpeed + " km/h");
+                        mySpeed ++;
+                    }
                 }
             }
         };
 
-        /*Lägg till om det gått mer än 10 sec*/
-        if(true){
-
-        }
 
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +108,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         });
     }
 
+
     public void onClickStop(View v){
         createDialog();
     }
@@ -105,22 +118,11 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Pause
-    /*
-    public void onClickPause(View v){
-        Intent intent = new Intent(this, RunActivityTreadmillPause.class);
-        intent.putExtra("speed",speed);
-        startActivity(intent);
-    }
-    */
-
-
     public void onClickPlus(View v){
         System.out.println(speed + " km/h");
 
         if(speed<50){
             speed++;
-            //tw.setText("Yes");
             tw.setText(speed + " km/h");
         }
         System.out.println(speed + " km/h");
@@ -177,6 +179,4 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         });
         alertDlg.create().show();
     }
-
-
 }
