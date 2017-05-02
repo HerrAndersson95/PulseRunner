@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mamn10grupp10.pulserunner">
     >
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,8 +29,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".StatisticsActivity"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".NewTrackRunning" />
         <activity
             android:name=".NewTrackPause"
@@ -47,8 +47,8 @@
             android:name=".RunActivityTreadmill"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".RunActivityFinish" />
-        <activity android:name=".RunActivityTreadmillFinish"></activity>
+        <activity android:name=".RunActivityTreadmillFinish" />
+        <activity android:name=".NewTest"></activity>
     </application>
-
 
 </manifest>

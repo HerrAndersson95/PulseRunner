@@ -20,4 +20,9 @@
     <string name="selectTrack">Select Track:</string>
     <string name="selectTime">Select Time:</string>
     <string name="start">Start</string>
+    <string name="Uploadrun">upload_run</string>
+    <string name="SaveRun">save_run</string>
+    <string name="Preview_run">preview_run</string>
+
+
 </resources>

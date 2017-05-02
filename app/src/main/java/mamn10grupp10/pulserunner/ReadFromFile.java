@@ -1,38 +1,36 @@
 package mamn10grupp10.pulserunner;
-
 import android.support.v7.app.AppCompatActivity;
-import java.io.BufferedReader;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
-/**
- * Created by annelinegjersem on 2017-04-05.
- */
+import java.io.InputStream;
+import java.io.FileInputStream;
 
 public class ReadFromFile  extends AppCompatActivity {
 
-    public String readfilefromAssist(String file) throws IOException {
-        BufferedReader reader= null;
-        StringBuilder sb= new StringBuilder();
+
+    public String readFromFile(String selectfile){
+        String txt = "";
+        FileInputStream fiS = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open(file)));
-            String line;
-            while((line = reader.readLine())!= null) {
-                    sb.append(line).append("\n");
-                }
-            return sb.toString();
+            fiS = openFileInput(selectfile);
 
-        }catch (IOException e) {
-            e.printStackTrace();
-
-        }finally {
-            reader.close();
+        byte [] input = new byte[fiS.available()];
+        while(fiS.read(input)!=-1) {
+            txt += new String(input);
         }
-        return null;
+        fiS.close();
+        return txt;
+        }catch(FileNotFoundException e ) {
+            e.printStackTrace();
+        } catch(IOException e) {
+        e.printStackTrace();
+
+     }
+     return null;
     }
 
     /*Input the string from the file. Output only the double data with diffMeter*/
@@ -61,7 +59,5 @@ public class ReadFromFile  extends AppCompatActivity {
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         return stringList.get(1);
     }
-
-
-
 }
+

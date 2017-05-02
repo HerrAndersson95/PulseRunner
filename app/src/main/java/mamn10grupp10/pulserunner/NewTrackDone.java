@@ -44,9 +44,4 @@ public class NewTrackDone extends AppCompatActivity {
         alertDlg.create().show();
     }
 
-    //Save
-    public void onClickSave(View v){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }

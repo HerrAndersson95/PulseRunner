@@ -1,6 +1,7 @@
 package mamn10grupp10.pulserunner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,6 +102,10 @@ public class StatisticsActivity extends AppCompatActivity {
         vib.vibrate(pattern,0);
     }
 
+    public void TestSave(View v){
+        Intent intent = new Intent(this,NewTest.class);
+        startActivity(intent);
+    }
 
 
     private String trackName = "Träskrundan";

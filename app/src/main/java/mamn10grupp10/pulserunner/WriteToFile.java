@@ -3,34 +3,33 @@ package mamn10grupp10.pulserunner;
 /**
  * Created by annelinegjersem on 2017-04-05.
  */
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import java.io.File;
 
-public class WriteToFile  extends AppCompatActivity {
-    private Context mContext;
+import java.io.FileOutputStream;
 
-
-    public void saveFile(String file) {
+public class WriteToFile extends AppCompatActivity {
+    File file;
+    FileOutputStream fop = null;
+    public void saveFile(String nameofrun) {
         try {
-
-       FileOutputStream fos = openFileOutput(file,Context.MODE_PRIVATE);
-        OutputStreamWriter osw= new OutputStreamWriter(fos);
-           osw.write(file);
-            osw.flush();
-            fos.close();
-            Toast.makeText(getBaseContext(),"Data saved", Toast.LENGTH_LONG).show();
+            file = new File(nameofrun);
+            fop = new FileOutputStream(file);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fop.write(nameofrun.getBytes());
+            fop.flush();
+            fop.close();
         } catch (IOException e) {
             e.printStackTrace();
 
-            }
         }
+    }
 
     /*Input the trackName, the runnerName and the arraylist of diffs (meters)
     * Creates StringBuillder and returns a strin with seperation of "\n", new line.*/
@@ -44,7 +43,4 @@ public class WriteToFile  extends AppCompatActivity {
         return sb.toString();
     }
 }
-
-
-
 
