@@ -1,11 +1,10 @@
 package mamn10grupp10.pulserunner;
 
 import android.content.Context;
-<<<<<<< HEAD
+
 import android.content.Intent;
-=======
+
 import android.os.Environment;
->>>>>>> origin/master
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
