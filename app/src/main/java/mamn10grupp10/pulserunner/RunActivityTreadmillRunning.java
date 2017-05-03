@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class RunActivityTreadmillRunning extends AppCompatActivity {
     /*Varibles for speed*/
     private int speed = 5;
@@ -38,6 +41,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     StopWatch stopwatch;
     double timeunit;
     double mySpeed;
+    double mySpeedSmooth;
 
     /*Varibles for Vib*/
     private Vibrator vib;
@@ -65,6 +69,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
 
         timeunit = 10;
         mySpeed = 0;
+        mySpeedSmooth = 0;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -91,6 +96,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         //start GPS service
         if (hasPermissions()){
             startService(new Intent(this, GPSservice.class));
+            System.out.println("GPS service started");
         }
         else {
             requestPerms();
@@ -110,10 +116,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-                        //displayValue.setText(mySpeed + " km/h");
-                        //mySpeed ++;
+                        //displayValue.setText(Double.toString(mySpeed) + " km/h");
+                        System.out.println(mySpeedSmooth);
                     }
-                    displayValue.setText(mySpeed + " km/h");
+                    displayValue.setText(Double.toString(mySpeedSmooth) + " km/h");
                 }
             }
         };
@@ -196,7 +202,13 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             currentLocation = b.getParcelable("Location");
 
             float spd = currentLocation.distanceTo(oldCurrentLocation);
+            System.out.println(spd);
             mySpeed = spd * 3.6;
+            mySpeed = round(mySpeed);
+            mySpeedSmooth = lowPassFilter(mySpeed, mySpeedSmooth);
+            mySpeedSmooth = round(mySpeedSmooth);
+
+            System.out.println("GPS recieved kmh: " + mySpeedSmooth);
         }
     };
 
@@ -301,5 +313,18 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
-    
+
+    private double lowPassFilter( double input, double output ) {
+        output = output + 0.5 * (input - output);
+        return output;
+    }
+
+    public double round(double value) {
+        int places = 2;
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

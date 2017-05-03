@@ -132,6 +132,7 @@ public class GPSservice extends Service {
         b.putParcelable("Location", mLastLocation);
         intent.putExtra("Location", b);
         sendBroadcast(intent);
+        System.out.println("SENT TO ACTIVITY");
     }
 
 }
