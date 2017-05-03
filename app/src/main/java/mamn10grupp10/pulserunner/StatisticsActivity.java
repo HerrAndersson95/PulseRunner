@@ -1,12 +1,21 @@
 package mamn10grupp10.pulserunner;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -15,6 +24,7 @@ public class StatisticsActivity extends AppCompatActivity {
     private int sleep;
     private TextView tw;
     private TextView twSleep;
+    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() +"/PulseRunnerData";
 
     //Test
     private TextView twLoader;
@@ -40,6 +50,10 @@ public class StatisticsActivity extends AppCompatActivity {
         tw.setText("Speed: "+speed+" ms");
         twSleep.setText("Sleep: "+sleep+" ms");
         twLoader.setText("Loader...");
+
+        /*Testing save*/
+        File dir = new File(path);
+        dir.mkdir();
     }
 
     public void onClickClose(View v){
@@ -107,10 +121,19 @@ public class StatisticsActivity extends AppCompatActivity {
     private String runnerName = "Christer Sjögren";
     private String savedData;
 
+
     public void onClickLoad(View v){
         twLoader.setText("Load Button Pressed");
-        ReadFromFile rfw = new ReadFromFile();
+        //ReadFromFile rfw = new ReadFromFile();
+        File file = new File (path + "/savedFile.txt");
+        String [] loadText = loadFromFile(file);
         StringBuilder sb = new StringBuilder();
+        for(int i = 0; i<loadText.length;i++){
+            sb.append(loadText[i]+"\n");
+        }
+        twLoader.setText(sb.toString());
+        /*
+        savedData = rfw.readFromFile(this.getApplicationContext());
         sb.append("Get TrackName: "+rfw.getTrackName(savedData)+"\n");
         sb.append("Get RunnerName: "+rfw.getRunnerName(savedData)+"\n");
         ArrayList<Double> list = rfw.returnDiffArray(savedData);
@@ -118,20 +141,110 @@ public class StatisticsActivity extends AppCompatActivity {
             sb.append(value+"\n");
         }
         twLoader.setText(sb.toString());
-
+        */
 
 
     }
 
     public void onClickSave(View v){
-        twLoader.setText("Save Button pressed.");
-        WriteToFile wf = new WriteToFile();
-        String data = wf.createStringFile(trackName,runnerName,listOfValues);
-        //savedData = savedData +"\n"+"\n" + data;
-        savedData = data;
-        twLoader.setText("Save Button pressed \n"+data);
+        //twLoader.setText("Save Button pressed.");
+        //WriteToFile wf = new WriteToFile();
+        File file = new File(path+"/savedFile.txt");
+        int length = listOfValues.size() + 2;
+        String [] saveText = new String [length];
+
         /*
-        wf.saveFile(wf.createStringFile(trackName,runnerName,listOfValues));*/
+        for(int i = 0; i<length-1; i++){
+            if(i==0){
+                saveText[i] = trackName;
+            }else if(i==1){
+                saveText[i] = runnerName;
+            }else{
+                saveText[i] = listOfValues.get(i).toString();
+            }
+        }*/
+        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+        saveToFile(file, saveText);
+        //String data = wf.createStringFile(trackName,runnerName,listOfValues);
+        //savedData = savedData +"\n"+"\n" + data;
+        //savedData = data;
+        //twLoader.setText("Save Button pressed \n"+data);
+        //wf.writeToFile(data,this.getApplicationContext());
+    }
+
+    public static void saveToFile(File file, String[] data){
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+    }
+
+    public static String[] loadFromFile(File file){
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+
+        String test;
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
+                anzahl++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        try
+        {
+            fis.getChannel().position(0);
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String[] array = new String[anzahl];
+
+        String line;
+        int i = 0;
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
+                array[i] = line;
+                i++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+        return array;
     }
 
 

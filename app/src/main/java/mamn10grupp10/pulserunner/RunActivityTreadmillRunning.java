@@ -40,24 +40,19 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     private final long[] closeer = {0,200,800};
     private final long[] closest = {0,200,200};
 
-    /*Varibles for Vib*/
-    private Vibrator vib;
-    long[] vibPattern;
-    private final long[] close = {0,200,1500};
-    private final long[] closeer = {0,200,800};
-    private final long[] closest = {0,200,200};
+    /*Varibles to send*/
+    private int distance;
+    private int hours,mins,ms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
 
-<<<<<<< HEAD
+
         timeunit = 10;
         mySpeed = 0;
 
-=======
->>>>>>> origin/master
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         stopwatch = new StopWatch();
@@ -104,11 +99,8 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         /*Lägg till om det gått mer än 10 sec*/
         if(true){
 
-<<<<<<< HEAD
-=======
         }
 
->>>>>>> origin/master
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -130,8 +122,25 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         createDialog();
     }
 
+    /*Use the arraylist to sum all distances*/
+    public int getDistance(){
+        return 1;
+    }
+
     public void onClickFinish(View v){
         Intent intent = new Intent(this, RunActivityTreadmillFinish.class);
+       /*Change these to the right value when we've got the GPS part etc...*/
+        int avgSpeed = (int) myAvgSpeed;
+        hours = 13;
+        mins = 37;
+        ms = 99;
+        distance = (int)7035.50;
+        intent.putExtra("speed",speed);
+        intent.putExtra("myAvgSpeed",avgSpeed);
+        intent.putExtra("hours",hours);
+        intent.putExtra("mins",mins);
+        intent.putExtra("ms",ms);
+        intent.putExtra("distance",distance);
         startActivity(intent);
     }
 

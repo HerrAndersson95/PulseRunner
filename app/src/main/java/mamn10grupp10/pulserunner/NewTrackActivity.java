@@ -100,6 +100,24 @@ public class NewTrackActivity extends AppCompatActivity {
         createDialog();
     }
 
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //builder.setTitle("Save Or Not");
+        builder.setMessage("Your current track will be lost, are you sure?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                NewTrackActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Do nothing
+            }
+        });
+        builder.show();
+    }
+
     public void onClickFinish(View v){
         stopwatch.pause();
         Intent intent = new Intent(this, NewTrackDone.class);

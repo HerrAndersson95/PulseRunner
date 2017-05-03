@@ -29,4 +29,9 @@ public class RunActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RunActivityTreadmill.class);
         startActivity(intent);
     }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        startActivity(new Intent(RunActivity.this, MainActivity.class));
+    }
 }

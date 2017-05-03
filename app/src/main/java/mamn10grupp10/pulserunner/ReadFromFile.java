@@ -1,8 +1,15 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +22,7 @@ import java.util.List;
 
 public class ReadFromFile  extends AppCompatActivity {
 
+    /*Anne-Lines read method*/
     public String readfilefromAssist(String file) throws IOException {
         BufferedReader reader= null;
         StringBuilder sb= new StringBuilder();
@@ -35,6 +43,7 @@ public class ReadFromFile  extends AppCompatActivity {
         return null;
     }
 
+
     /*Input the string from the file. Output only the double data with diffMeter*/
     public ArrayList<Double> returnDiffArray(String fileString){
         /*Creats a list with both name of track and runner, as well as double values*/
@@ -42,7 +51,7 @@ public class ReadFromFile  extends AppCompatActivity {
         /*Creats a ArrayList for the double values and then only adds those from the stringlist*/
         ArrayList<Double> list = new ArrayList<Double>();
         /*Starts at 2 instead of 0, so we skip the name of track and runner*/
-        for(int i = 2; i<stringList.size();i++){
+        for(int i = 3; i<stringList.size();i++){
             /*Converts the index value to double*/
             list.add(Double.parseDouble(stringList.get(i)));
         }
@@ -60,6 +69,11 @@ public class ReadFromFile  extends AppCompatActivity {
     public String getRunnerName(String fileString){
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         return stringList.get(1);
+    }
+
+    public String getTimeStamp(String fileString){
+        List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
+        return stringList.get(2);
     }
 
 

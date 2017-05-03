@@ -34,6 +34,7 @@
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/colorTransparentYellow"
         android:text="ToggleButton"
+        android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textOff="Continue"
         android:textOn="Pause"
@@ -92,6 +93,7 @@
             android:backgroundTint="@color/colorTransparentRed"
             android:onClick="onClickStop"
             android:text="STOP"
+            android:textAllCaps="false"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"
             android:visibility="invisible" />
@@ -104,6 +106,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:onClick="onClickFinish"
             android:text="Finish"
+            android:textAllCaps="false"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"
             android:visibility="invisible" />
