@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class NewTrackDone extends AppCompatActivity {
 
@@ -47,8 +49,18 @@ public class NewTrackDone extends AppCompatActivity {
 
     //Save
     public void onClickSave(View v){
-        // Insert SAVE Method here!!
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        EditText etTrack = (EditText) findViewById(R.id.trackName);
+        EditText etRunner = (EditText) findViewById(R.id.runnerName);
+        String trackName = etTrack.getText().toString();
+        String runnerName = etRunner.getText().toString();
+        if(!runnerName.isEmpty() && !trackName.isEmpty()){
+            Intent intent = new Intent(this, MainActivity.class);
+
+            // Insert SAVE Method here!!
+
+            startActivity(intent);
+        }
+
+
     }
 }
