@@ -50,5 +50,11 @@ public class RunActivityTreadmill extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed(){
+        super.onBackPressed();
+        startActivity(new Intent(RunActivityTreadmill.this, MainActivity.class));
+        finish();
+    }
+
 
 }

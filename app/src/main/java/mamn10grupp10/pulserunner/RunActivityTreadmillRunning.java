@@ -1,9 +1,15 @@
 package mamn10grupp10.pulserunner;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -40,10 +46,22 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     private final long[] closeer = {0,200,800};
     private final long[] closest = {0,200,200};
 
+
+    /*Varibles to send*/
+    private int distance;
+    private int hours,mins,ms;
+    //Variables for GPSservice
+    protected static final int MY_PERMISSIONS_REQUEST_GPS_FINE = 1;
+    private Location currentLocation;
+    private Location oldCurrentLocation;
+    public static String str_receiver = "GPSserviceTAG";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
+
 
         timeunit = 10;
         mySpeed = 0;
@@ -70,6 +88,14 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         speed = intent.getIntExtra("speed",0);
         tw.setText(speed + " km/h");
 
+        //start GPS service
+        if (hasPermissions()){
+            startService(new Intent(this, GPSservice.class));
+        }
+        else {
+            requestPerms();
+        }
+
         final Runnable updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {
@@ -84,16 +110,17 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-                        displayValue.setText(mySpeed + " km/h");
-                        mySpeed ++;
+                        //displayValue.setText(mySpeed + " km/h");
+                        //mySpeed ++;
                     }
+                    displayValue.setText(mySpeed + " km/h");
                 }
             }
         };
 
         /*Lägg till om det gått mer än 10 sec*/
         if(true){
-            
+
         }
 
         /*Start/Pause/Continue-button */
@@ -112,13 +139,90 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         });
     }
 
+    //PERMISSION CHECK START TO FIN
+    private boolean hasPermissions(){
+        int res = 0;
+        //string array of permissions,
+        String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+
+        for (String perms : permissions){
+            res = checkCallingOrSelfPermission(perms);
+            if (!(res == PackageManager.PERMISSION_GRANTED)){
+                System.out.println("PERM NOT GRANTED GRANTED");
+                return false;
+            }
+        }
+        System.out.println("PERM ALREADY GRANTED GRANTED");
+        return true;
+    }
+    private void requestPerms(){
+        String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            requestPermissions(permissions,MY_PERMISSIONS_REQUEST_GPS_FINE);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_GPS_FINE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    System.out.println("OK PERM GRANTED");
+
+                    System.out.println("OK GPS SETUP COMPLETED");
+
+                } else {
+                    System.out.println("No Permission given");
+                    finish();
+                }
+            }
+        }
+    }
+    //PERMISSION CHECK FIN
+
+    //GPSservice BROADCAST to activity
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle b = (Bundle) intent.getBundleExtra("Location");
+            if(oldCurrentLocation == null){
+                oldCurrentLocation = b.getParcelable("Location");
+                currentLocation = b.getParcelable("Location");
+            }
+            oldCurrentLocation = currentLocation;
+            currentLocation = b.getParcelable("Location");
+
+            float spd = currentLocation.distanceTo(oldCurrentLocation);
+            mySpeed = spd * 3.6;
+        }
+    };
 
     public void onClickStop(View v){
         createDialog();
     }
 
+    /*Use the arraylist to sum all distances*/
+    public int getDistance(){
+        return 1;
+    }
+
     public void onClickFinish(View v){
         Intent intent = new Intent(this, RunActivityTreadmillFinish.class);
+       /*Change these to the right value when we've got the GPS part etc...*/
+        int avgSpeed = (int) myAvgSpeed;
+        hours = 13;
+        mins = 37;
+        ms = 99;
+        distance = (int)7035.50;
+        intent.putExtra("speed",speed);
+        intent.putExtra("myAvgSpeed",avgSpeed);
+        intent.putExtra("hours",hours);
+        intent.putExtra("mins",mins);
+        intent.putExtra("ms",ms);
+        intent.putExtra("distance",distance);
         startActivity(intent);
     }
 
@@ -184,5 +288,18 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         alertDlg.create().show();
     }
 
+    //Called by activity
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, new IntentFilter(RunActivityTreadmillRunning.str_receiver));
 
+    }
+    //Called by activity
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
+    
 }

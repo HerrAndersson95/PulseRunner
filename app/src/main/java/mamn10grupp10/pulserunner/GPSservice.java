@@ -1,4 +1,4 @@
-package com.anderssonlegitapp.joakim.sensormadness;
+package mamn10grupp10.pulserunner;
 
 import android.app.Service;
 import android.content.Context;
@@ -80,7 +80,8 @@ public class GPSservice extends Service {
         Log.e(TAG, "onCreate");
         initializeLocationManager();
         try {
-            //ERMISSIONS
+            //PERMISSIONS
+            //noinspection MissingPermission
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[1]);
@@ -91,6 +92,7 @@ public class GPSservice extends Service {
         }
         try {
             //PERMISSIONS
+            //noinspection MissingPermission
             mLocationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[0]);
@@ -130,7 +132,6 @@ public class GPSservice extends Service {
         b.putParcelable("Location", mLastLocation);
         intent.putExtra("Location", b);
         sendBroadcast(intent);
-        System.out.println("Data sent to activity");
     }
 
 }

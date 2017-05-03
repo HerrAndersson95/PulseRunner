@@ -38,9 +38,16 @@ public class RunActivityRunning extends AppCompatActivity {
     private final long[] closeer = {0, 200, 800};
     private final long[] closest = {0, 200, 200};
 
+    /*Varibles to send*/
+    private int distance;
+    private int hours,mins,ms;
+    private int secs;
+    private ArrayList<Double> logDistances;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
+        logDistances = new ArrayList<Double>();
 
         timeunit = 10;
         newtrack = new ArrayList<>();
@@ -114,8 +121,51 @@ public class RunActivityRunning extends AppCompatActivity {
         createDialog();
     }
 
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //builder.setTitle("Save Or Not");
+        builder.setMessage("Your current track will be lost, are you sure?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                RunActivityRunning.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Do nothing
+            }
+        });
+        builder.show();
+    }
+
+    public int getAvgSpeed(){
+        return getDistance()/secs;
+    }
+
+    public int getDistance(){
+        double distance = 0;
+        for(Double value : logDistances){
+            distance +=value;
+        }
+        return (int) distance;
+    }
+
+
     public void onClickFinish(View v) {
         Intent intent = new Intent(this, RunActivityFinish.class);
+        /*Change these to the right value when we've got the GPS part etc...*/
+        //int avgSpeed = getAvgSpeed();
+        int avgSpeed = 66;
+        hours = 13;
+        mins = 37;
+        ms = 99;
+        distance = (int)7035.50;
+        intent.putExtra("myAvgSpeed",avgSpeed);
+        intent.putExtra("hours",hours);
+        intent.putExtra("mins",mins);
+        intent.putExtra("ms",ms);
+        intent.putExtra("distance",distance);
         startActivity(intent);
     }
 
@@ -146,6 +196,8 @@ public class RunActivityRunning extends AppCompatActivity {
         alertDlg.create().show();
     }
 
+
+
     /*The vib pattern will be set accordingly to the percentage of the track
     * Compares the saved tracks meters towards what you've ran yourself*/
     public void setVibPattern(int thisTrackMeter, int savedTrackMeter) {
@@ -172,4 +224,6 @@ public class RunActivityRunning extends AppCompatActivity {
 
         }
     }
+
+
 }
