@@ -116,7 +116,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-                        //displayValue.setText(Double.toString(mySpeed) + " km/h");
+                        setVibPattern();
                         System.out.println(mySpeedSmooth);
                     }
                     displayValue.setText(Double.toString(mySpeedSmooth) + " km/h");
@@ -259,7 +259,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     * The more freq vibrations indicate on the further away from your avg speed
     * So hurry up!*/
     public void setVibPattern(){
-        if(myAvgSpeed > speed){
+        if(mySpeedSmooth > speed){
             vib.cancel();
         } else{
             double percentage = myAvgSpeed % speed;
@@ -271,10 +271,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                 vib.vibrate(closest,0);
             }
         }
-    }
-
-    public double getMyAvgSpeed(int totalMeters, int totalSecs ){
-        return totalMeters/totalSecs;
     }
 
     public void createDialog(){
