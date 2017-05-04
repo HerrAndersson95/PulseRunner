@@ -139,6 +139,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
                 }
                 else{
                     stopwatch.resume();
+                    setVibPattern();
                     displayTitle.setText("Running");
                 }
                 handler.post(updater);
@@ -239,6 +240,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         intent.putExtra("mins",mins);
         intent.putExtra("ms",ms);
         intent.putExtra("distance",distance);
+        onPause();
         startActivity(intent);
     }
 
@@ -267,12 +269,16 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             vib.cancel();
         } else{
             double percentage = mySpeedSmooth % speed;
+            displayTitle.setText(mySpeedSmooth+"/"+speed+"/"+Double.toString(percentage));
             if(percentage > 75){
                 vib.vibrate(close,0);
+
             }else if(percentage > 50){
                 vib.vibrate(closeer,0);
+
             }else {
                 vib.vibrate(closest,0);
+
             }
         }
     }
@@ -282,11 +288,11 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         alertDlg.setMessage("Exit Treadmill Mode?");
         alertDlg.setCancelable(false);
         final Intent popUpintent = new Intent(this, RunActivityTreadmill.class);
-
+        vib.cancel();
         alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                onPause();
                 startActivity(popUpintent);
             }
         });
@@ -305,6 +311,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(broadcastReceiver, new IntentFilter(RunActivityTreadmillRunning.str_receiver));
+
 
     }
     //Called by activity

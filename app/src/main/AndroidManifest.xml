@@ -18,6 +18,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,32 +27,45 @@
         </activity>
         <activity
             android:name=".NewTrackActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".RunActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".StatisticsActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".NewTrackRunning" />
         <activity
             android:name=".NewTrackPause"
+            android:screenOrientation="portrait"
             android:parentActivityName=".NewTrackRunning" />
-        <activity android:name=".NewTrackDone" />
-        <activity android:name=".RunActivityTreadmillRunning" />
+        <activity android:name=".NewTrackDone"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RunActivityTreadmillRunning"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RunActivityTreadmillPause"
-            android:parentActivityName=".RunActivityRunning" />
-        <activity android:name=".RunActivityRunning" />
+            android:parentActivityName=".RunActivityRunning"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RunActivityRunning"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RunActivityPause"
-            android:parentActivityName=".RunActivityRunning" />
+            android:parentActivityName=".RunActivityRunning"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RunActivityTreadmill"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".RunActivityFinish" />
-        <activity android:name=".RunActivityTreadmillFinish" />
-        <activity android:name=".NewTest"></activity>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RunActivityFinish"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RunActivityTreadmillFinish"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewTest"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

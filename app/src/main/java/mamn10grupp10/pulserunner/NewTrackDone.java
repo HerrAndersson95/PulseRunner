@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class NewTrackDone extends AppCompatActivity {
 
@@ -42,6 +43,18 @@ public class NewTrackDone extends AppCompatActivity {
             }
         });
         alertDlg.create().show();
+    }
+
+    public void onClickSave(View v){
+        EditText etTrack = (EditText) findViewById(R.id.trackName);
+        EditText etRunner = (EditText) findViewById(R.id.runnerName);
+        String trackName = etTrack.getText().toString();
+        String runnerName = etRunner.getText().toString();
+        if(!runnerName.isEmpty() && !trackName.isEmpty()){
+            Intent intent = new Intent(this, MainActivity.class);
+            // INSERT SAVE HERE
+            startActivity(intent);
+        }
     }
 
 }

@@ -1,8 +1,10 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.icu.math.MathContext;
 import android.icu.text.DecimalFormat;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
