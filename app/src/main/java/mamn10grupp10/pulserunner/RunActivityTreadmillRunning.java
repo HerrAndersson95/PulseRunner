@@ -67,7 +67,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         setContentView(R.layout.activity_run_treadmill_running);
 
 
-        timeunit = 10;
+        timeunit = 5;
         mySpeed = 0;
         mySpeedSmooth = 0;
 
@@ -134,6 +134,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
             public void onClick(View v) {
                 if(!onOffTime.isChecked()){
                     stopwatch.pause();
+                    vib.cancel();
                     displayTitle.setText("Paused");
                 }
                 else{
@@ -203,6 +204,9 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
 
             float spd = currentLocation.distanceTo(oldCurrentLocation);
             System.out.println(spd);
+            System.out.println("ACCURACY: " + currentLocation.getAccuracy());
+            System.out.println("SPEED: " + currentLocation.hasSpeed());
+            System.out.println("SPEED: " + currentLocation.getSpeed());
             mySpeed = spd * 3.6;
             mySpeed = round(mySpeed);
             mySpeedSmooth = lowPassFilter(mySpeed, mySpeedSmooth);
@@ -249,7 +253,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     }
 
     public void onClickMinus(View v){
-        if(speed>1){
+        if(speed>0){
             speed--;
             tw.setText(speed + " km/h");
         }
@@ -259,10 +263,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     * The more freq vibrations indicate on the further away from your avg speed
     * So hurry up!*/
     public void setVibPattern(){
-        if(mySpeedSmooth > speed){
+        if(mySpeedSmooth >= speed){
             vib.cancel();
         } else{
-            double percentage = myAvgSpeed % speed;
+            double percentage = mySpeedSmooth % speed;
             if(percentage > 75){
                 vib.vibrate(close,0);
             }else if(percentage > 50){
@@ -308,6 +312,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
+        vib.cancel();
     }
 
     private double lowPassFilter( double input, double output ) {
@@ -315,7 +320,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity {
         return output;
     }
 
-    public double round(double value) {
+    private double round(double value) {
         int places = 2;
         if (places < 0) throw new IllegalArgumentException();
 

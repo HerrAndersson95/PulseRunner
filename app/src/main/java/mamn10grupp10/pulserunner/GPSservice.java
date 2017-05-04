@@ -33,6 +33,7 @@ public class GPSservice extends Service {
         {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+            System.out.println("ACCURACY IS: " + mLastLocation.getAccuracy());
             System.out.println("LOCATION CHANGED");
             sendToActivity();
         }
