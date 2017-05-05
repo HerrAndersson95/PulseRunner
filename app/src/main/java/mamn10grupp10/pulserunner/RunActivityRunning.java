@@ -52,6 +52,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     ArrayList<Double> newtrack;
     double a = 10;
     double b = 2;
+    double totDist;
 
     private Vibrator vib;
     private long[] vibPattern;
@@ -91,6 +92,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
         timeunit = 10;
         newtrack = new ArrayList<>();
+        totDist = 0;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -497,7 +499,9 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
             //longitude.setText(String.format(String.valueOf(mCurrentLocation.getLongitude())));
             float dist = mCurrentLocation.distanceTo(oldmCurrentLocation);
             float gpsInterval = (mCurrentLocationTime - oldmCurrentLocationTime)/1000;
-
+            totDist +=  dist;
+            totDist = round(totDist);
+            System.out.println("Toatl Distance is: " + totDist);
             /*
             if(gpsInterval != 0){
                 mySpeed = (dist / gpsInterval) * 3.6;

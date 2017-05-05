@@ -37,6 +37,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     /*Varibles for speed*/
     private int speed = 5;  //VAR SPEED
     private double myAvgSpeed;
+    private double totDist = 0;
     private int totMeters = 0;
 
     private TextView tw;
@@ -94,6 +95,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         //INIT SPEED VALUES
         mySpeed = 0;
         mySpeedSmooth = 0;
+        totDist = 0;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         stopwatch = new StopWatch();
@@ -130,7 +132,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                         setVibPattern();
                         System.out.println(mySpeedSmooth);
                         myAvgSpeed += mySpeedSmooth;
-                        totMeters = Math.round(Math.round((mySpeedSmooth/3.6) * timeunit));
+                        totMeters += Math.round(Math.round((mySpeedSmooth/3.6) * timeunit));
                     }
                     displayValue.setText(Double.toString(mySpeedSmooth) + " km/h");
                 }
@@ -479,7 +481,9 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             mySpeed = round(mySpeed);
             mySpeedSmooth = lowPassFilter(mySpeed, mySpeedSmooth);
             mySpeedSmooth = round(mySpeedSmooth);
-
+            totDist +=  dist;
+            totDist = round(totDist);
+            System.out.println("Toatl Distance is: " + totDist);
 
             System.out.println("Distance is: " + dist);
             System.out.println("Interval time in seconds: " + gpsInterval);
