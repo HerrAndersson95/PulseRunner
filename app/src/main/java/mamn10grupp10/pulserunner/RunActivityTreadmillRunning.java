@@ -90,7 +90,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
-        timeunit = 5;
+        timeunit = 2;
         //INIT SPEED VALUES
         mySpeed = 0;
         mySpeedSmooth = 0;
@@ -251,7 +251,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     }
 
     private double lowPassFilter( double input, double output ) {
-        output = output + 0.5 * (input - output);
+        output = output + 0.7 * (input - output);
         return output;
     }
 
@@ -472,16 +472,18 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             //latitude.setText(String.format(String.valueOf(mCurrentLocation.getLatitude())));
             //longitude.setText(String.format(String.valueOf(mCurrentLocation.getLongitude())));
             float dist = mCurrentLocation.distanceTo(oldmCurrentLocation);
-            long gpsInterval = (mCurrentLocationTime - oldmCurrentLocationTime)/1000;
-
-            mySpeed = (dist / gpsInterval) * 3.6;
+            float gpsInterval = (mCurrentLocationTime - oldmCurrentLocationTime)/1000;
+            if(gpsInterval != 0){
+                mySpeed = (dist / gpsInterval) * 3.6;
+            }
             mySpeed = round(mySpeed);
             mySpeedSmooth = lowPassFilter(mySpeed, mySpeedSmooth);
             mySpeedSmooth = round(mySpeedSmooth);
 
 
             System.out.println("Distance is: " + dist);
-            System.out.println("Interval time in seconds: " + gpsInterval/1000);
+            System.out.println("Interval time in seconds: " + gpsInterval);
+            System.out.println("Calculated speed is: " + mySpeedSmooth);
             System.out.println("Has speed? " + mCurrentLocation.hasSpeed());
             System.out.println("Speed: " +mCurrentLocation.getSpeed());
             System.out.println("Has Altitude? " +mCurrentLocation.hasAltitude());
