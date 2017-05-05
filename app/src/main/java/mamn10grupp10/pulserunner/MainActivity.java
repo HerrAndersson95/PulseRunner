@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickNewTrack(View v){
-        Intent intent = new Intent(this, NewTrackActivity.class);
-        startActivity(intent);
+        if (hasPermissions()){
+            Intent intent = new Intent(this, NewTrackActivity.class);
+            startActivity(intent);
+        }
+        else {
+            requestPerms();
+        }
     }
 
     public void onClickStatistics(View v){
