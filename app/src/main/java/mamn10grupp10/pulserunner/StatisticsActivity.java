@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -131,14 +132,26 @@ public class StatisticsActivity extends AppCompatActivity {
 
     public void onClickLoad(View v){
         twLoader.setText("Load Button Pressed");
-        //ReadFromFile rfw = new ReadFromFile();
-        File file = new File (path + "/savedFile.txt");
-        String [] loadText = loadFromFile(file);
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i<loadText.length;i++){
-            sb.append(loadText[i]+"\n");
+
+        String filename = "myfile";
+        FileInputStream inputStream;
+
+        try {
+            inputStream = openFileInput(filename);
+           // int s = inputStream.read();
+            twLoader.setText(convertStreamToString(inputStream));
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        twLoader.setText(sb.toString());
+        //ReadFromFile rfw = new ReadFromFile();
+        //File file = new File (path + "/savedFile.txt");
+        //String [] loadText = loadFromFile(file);
+        //StringBuilder sb = new StringBuilder();
+        //for(int i = 0; i<loadText.length;i++){
+          //  sb.append(loadText[i]+"\n");
+        //}
+        //twLoader.setText(sb.toString());
         /*
         savedData = rfw.readFromFile(this.getApplicationContext());
         sb.append("Get TrackName: "+rfw.getTrackName(savedData)+"\n");
@@ -153,12 +166,34 @@ public class StatisticsActivity extends AppCompatActivity {
 
     }
 
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        is.close();
+        return sb.toString();
+    }
+
     public void onClickSave(View v){
-        //twLoader.setText("Save Button pressed.");
+        twLoader.setText("Save Button pressed.");
+        String filename = "myfile";
+        String string = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //WriteToFile wf = new WriteToFile();
-        File file = new File(path+"/savedFile.txt");
-        int length = listOfValues.size() + 2;
-        String [] saveText = new String [length];
+        //File file = new File(path+"/savedFile.txt");
+        //int length = listOfValues.size() + 2;
+        //String [] saveText = new String [length];
 
         /*
         for(int i = 0; i<length-1; i++){
@@ -170,8 +205,8 @@ public class StatisticsActivity extends AppCompatActivity {
                 saveText[i] = listOfValues.get(i).toString();
             }
         }*/
-        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-        saveToFile(file, saveText);
+        //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+        //saveToFile(file, saveText);
         //String data = wf.createStringFile(trackName,runnerName,listOfValues);
         //savedData = savedData +"\n"+"\n" + data;
         //savedData = data;
@@ -253,6 +288,4 @@ public class StatisticsActivity extends AppCompatActivity {
         catch (IOException e) {e.printStackTrace();}
         return array;
     }
-
-
 }

@@ -7,6 +7,30 @@
     tools:context="mamn10grupp10.pulserunner.RunActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button21"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:backgroundTint="@color/colorTransparentDark"
+            android:onClick="onClickTreadmill"
+            android:text="@string/treadmillMode"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteX="33dp"
+            tools:layout_editor_absoluteY="144dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linarlayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -43,53 +67,30 @@
 
         <ListView
             android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorTransparentPrimaryDark"
-        android:onClick="onClickStart"
-        android:text="@string/start"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70" />
 
         <Button
-            android:id="@+id/button21"
+            android:id="@+id/button2"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:backgroundTint="@color/colorTransparentDark"
-            android:onClick="onClickTreadmill"
-            android:text="@string/treadmillMode"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="46dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/colorTransparentPrimaryDark"
+            android:onClick="onClickStart"
+            android:text="@string/start"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            tools:layout_editor_absoluteX="33dp"
-            tools:layout_editor_absoluteY="144dp" />
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </LinearLayout>
 
 

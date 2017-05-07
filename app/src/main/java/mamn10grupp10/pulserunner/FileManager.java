@@ -1,6 +1,6 @@
-package mamn10grupp10.pulserunner;
-
-import android.view.View;
+package mamn10grupp10.pulserunner; /**
+ * Created by Annie on 2017-05-07.
+ */
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -19,10 +19,10 @@ import java.util.List;
  */
 
 public class FileManager {
-private Context context;
+    private Context context;
 
     public FileManager( Context context){
-      this.context = context;
+        this.context = context;
 
     }
 
@@ -31,7 +31,7 @@ private Context context;
         FileInputStream fs;
         try {
             fs = context.openFileInput(filename);
-        data = (convertStreamToString(fs));
+            data = (convertStreamToString(fs));
 
 
         } catch (Exception e) {
@@ -63,6 +63,7 @@ private Context context;
         is.close();
         return sb.toString();
     }
+
     /*Input the string from the file. Output only the double data with diffMeter*/
     public ArrayList<Double> returnDiffArray(String fileString){
         /*Creats a list with both name of track and runner, as well as double values*/
