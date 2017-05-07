@@ -23,6 +23,7 @@
         app:layout_constraintHorizontal_bias="0.503" />
 
 
+
     <EditText
         android:id="@+id/trackName"
 
@@ -39,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
     <Button
         android:id="@+id/button4"
@@ -49,7 +50,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorTransparentRed"
         android:onClick="onClickCancel"
         android:text="Cancel"
         android:textAllCaps="false"
@@ -87,4 +87,4 @@
         app:layout_constraintLeft_toRightOf="@+id/space2"
         app:layout_constraintRight_toRightOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+

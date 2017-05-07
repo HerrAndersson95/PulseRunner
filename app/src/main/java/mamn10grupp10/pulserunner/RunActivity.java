@@ -27,9 +27,7 @@ ListView list;
         ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
 
-
     }
-
 
 
     public void onClickStart(View v){

@@ -1,19 +1,18 @@
 package mamn10grupp10.pulserunner;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
 import android.widget.Toast;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class NewTrackDone extends AppCompatActivity {
 EditText nameOfTrack;
@@ -61,15 +60,11 @@ EditText nameOfTrack;
         alertDlg.create().show();
     }
 
-    //save to a preference
-
     public void saveTrack(View view) {
         fileManager.writeFile(nameOfTrack.getText().toString(),"23456743");
      Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
-
 }
+
