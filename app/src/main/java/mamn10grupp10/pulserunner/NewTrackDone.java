@@ -6,15 +6,26 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class NewTrackDone extends AppCompatActivity {
-
+    EditText nameOfTrack;
+    Button save;
+    ArrayList<String> nameoftracklist;
+    FileManager fileManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track_done);
+        nameOfTrack = (EditText)findViewById(R.id.trackName);
+        save = (Button)findViewById(R.id.save);
+        nameoftracklist = new ArrayList<String>();
+        fileManager = new FileManager(this.getApplicationContext());
     }
 
     //Cancel
@@ -46,7 +57,12 @@ public class NewTrackDone extends AppCompatActivity {
     }
 
     public void onClickSave(View v){
-        EditText etTrack = (EditText) findViewById(R.id.trackName);
+         fileManager.writeFile(nameOfTrack.getText().toString(),"23456743");
+         Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
+         Intent intent = new Intent(this, MainActivity.class);
+         startActivity(intent);
+
+    /*    EditText etTrack = (EditText) findViewById(R.id.trackName);
         EditText etRunner = (EditText) findViewById(R.id.runnerName);
         String trackName = etTrack.getText().toString();
         String runnerName = etRunner.getText().toString();
@@ -55,6 +71,7 @@ public class NewTrackDone extends AppCompatActivity {
             // INSERT SAVE HERE
             startActivity(intent);
         }
+        */
     }
 
 }
