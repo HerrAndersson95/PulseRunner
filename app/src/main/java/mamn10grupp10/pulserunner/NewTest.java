@@ -41,23 +41,24 @@ public class NewTest extends AppCompatActivity {
     EditText textFilename;
     Button save;
     Button load;
-    WriteToFile wf;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_test);
-       textData = (EditText) findViewById(R.id.textData);
+
+    }
+}
+      /* textData = (EditText) findViewById(R.id.textData);
         textv = (TextView) findViewById(R.id.read);
         save = (Button) findViewById(R.id.save);
         load = (Button) findViewById(R.id.load);
        textFilename = (EditText)findViewById(R.id.textFilename);
-        // path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        // wf = new WriteToFile();
+
 
     }
 
-    public void writeFile(View view) {
+   /* public void writeFile(View view) {
 
         String filename = textFilename.getText().toString();
 
@@ -116,7 +117,7 @@ public class NewTest extends AppCompatActivity {
         }**/
 
 
-    public void readFile(View view) {
+    /*public void readFile(View view) {
         String filename = textFilename.getText().toString();
         FileInputStream fs;
         try {
