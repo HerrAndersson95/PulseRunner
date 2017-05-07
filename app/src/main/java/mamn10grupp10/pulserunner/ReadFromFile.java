@@ -1,30 +1,29 @@
 package mamn10grupp10.pulserunner;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
-public class ReadFromFile  extends AppCompatActivity {
+public class ReadFromFile extends AppCompatActivity {
 
+public ReadFromFile(){
 
-    public String readFromFile(String selectfile){
-        String txt = "";
-        FileInputStream fiS = null;
+}
+    public String readFromFile(){
+        String txt;
+
         try {
-            fiS = openFileInput(selectfile);
-
-        byte [] input = new byte[fiS.available()];
-        while(fiS.read(input)!=-1) {
-            txt += new String(input);
-        }
-        fiS.close();
+          InputStream inputstream =getAssets().open("distance.txt");
+        byte [] input = new byte[inputstream.available()];
+       inputstream.read(input);
+            txt = new String(input);
+        inputstream.close();
         return txt;
-        }catch(FileNotFoundException e ) {
-            e.printStackTrace();
+
         } catch(IOException e) {
         e.printStackTrace();
 

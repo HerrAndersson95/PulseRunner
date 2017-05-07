@@ -22,23 +22,6 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintHorizontal_bias="0.503" />
 
-    <EditText
-        android:id="@+id/runnerName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Enter name of the runner here.."
-        android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-
 
     <EditText
         android:id="@+id/trackName"
@@ -89,14 +72,14 @@
         android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/save"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:backgroundTint="@color/colorTransparentPrimaryDark"
-        android:onClick="onClickSave"
+        android:onClick="saveTrack"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
