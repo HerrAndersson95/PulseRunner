@@ -7,6 +7,17 @@
     tools:context="mamn10grupp10.pulserunner.NewTest">
 
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/s4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="-860dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <TextView
         android:id="@+id/read"
         android:layout_width="0dp"
@@ -16,8 +27,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/btn_main_statistics"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="60sp"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,128 +36,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.438"
         tools:text="@string/show_speed" />
-
-    <ViewFlipper
-        android:id="@+id/bckgrndViewFlipper1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/bckgrndImageView5"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s5"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView6"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s6" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView7"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s7" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView8"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s8" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView9"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s9" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView10"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s10" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s1" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s2" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView3"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s3" />
-
-        <ImageView
-            android:id="@+id/bckgrndImageView4"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/s4" />
-
-    </ViewFlipper>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s5"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s6" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s7" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s8" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/s9"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
