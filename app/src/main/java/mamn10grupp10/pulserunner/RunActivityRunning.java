@@ -59,6 +59,8 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     private final long[] close = {0, 200, 1500};
     private final long[] closeer = {0, 200, 800};
     private final long[] closest = {0, 200, 200};
+    private final long[] superBehind = {0, 200, 5000};
+    private final long[] none = {0,0,0};
 
     /*Varibles to send*/
     private int distance;
@@ -92,6 +94,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
     private String trackName;
     private int counter;
+    private TextView twInfo;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +117,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         displayTime = (TextView) findViewById(R.id.runTime);
         displayTitle = (TextView) findViewById(R.id.RunnerTitle);
         displayValue = (TextView) findViewById(R.id.textDifference);
+        twInfo = (TextView) findViewById(R.id.runningInfo);
 
         onOffTime = (ToggleButton) findViewById(R.id.onOff);
         onOffTime.setText("STARTA");
@@ -145,12 +149,17 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
-                    if((elapsedTimeLong/100) % (timeunit*10) == 0){
+                    if((elapsedTimeLong/100) % (timeunit*5) == 0){
                         logDistances.add(totDist);
-                        counter++;
                         double compare = compareTrack.get(counter);
-                        setVibPattern(totDist,compare);
-                        double distDiff = manager.getDistanceDifference(a,b);
+
+                        /*Vad är detta???*/
+                        //double distDiff = manager.getDistanceDifference(a,b);
+                        /*Bör det ej vara:*/
+                        double distDiff = totDist - compare;
+                        distDiff = distDiff*100;
+                        distDiff = Math.round(distDiff);
+                        distDiff = distDiff/100;
                         if (distDiff <0){
                             displayValue.setTextColor(Color.argb(188, 121, 32, 63));
                             displayValue.setText("- " + Math.abs(distDiff) + " m");
@@ -159,8 +168,22 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                             displayValue.setTextColor(Color.argb(188, 97, 162, 108));
                             displayValue.setText("+ " + (distDiff) + " m");
                         }
+                        //Onödiga?
+                        /*
                         a -= 1;
                         b += 3;
+                        */
+                        double vibPerc = totDist/compare;
+                        vibPerc = vibPerc*100;
+                        vibPerc = Math.round(vibPerc);
+                        vibPerc = vibPerc/100;
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Distance you've ran: "+totDist+" m\n");
+                        sb.append("Distance other track: "+compare+" m\n");
+                        sb.append("Percentage speed: "+vibPerc);
+                        twInfo.setText(sb.toString());
+                        setVibPattern(vibPerc);
+                        counter++;
                     }
                 }
             }
@@ -212,19 +235,6 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         builder.show();
     }
 
-    public int getAvgSpeed(){
-        return getDistance()/secs;
-    }
-
-    public int getDistance(){
-        double distance = 0;
-        for(Double value : logDistances){
-            distance +=value;
-        }
-        return (int) distance;
-    }
-
-
     public void onClickFinish(View v) {
         Intent intent = new Intent(this, RunActivityFinish.class);
         /*Change these to the right value when we've got the GPS part etc...*/
@@ -237,6 +247,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         b.putSerializable("newtrack",logDistances);
         intent.putExtra("bundle",b);
         intent.putExtra("time",displayTime.getText().toString());
+        vib.cancel();
         startActivity(intent);
     }
 
@@ -271,30 +282,17 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
     /*The vib pattern will be set accordingly to the percentage of the track
     * Compares the saved tracks meters towards what you've ran yourself*/
-    public void setVibPattern(double thisTrackMeter, double savedTrackMeter) {
-        double diff = thisTrackMeter - savedTrackMeter;
-        /*If you are behind*/
-        if (diff < 0) {
-            double percentage = thisTrackMeter / savedTrackMeter;
-            if (percentage > 90) {
-                vib.vibrate(closest, 0);
-            }else{
-                vib.vibrate(close,0);
-            }
-
-            /*Els you are ahead*/
-        } else {
-            double percentage = thisTrackMeter / savedTrackMeter;
-            if (percentage < 1.10) {
-                vib.vibrate(closest, 0);
-            } else if (percentage < 1.20) {
-                vib.vibrate(closeer, 0);
-            } else if (percentage < 1.40) {
-                vib.vibrate(close, 0);
-            } else {
-                vib.cancel();
-            }
-
+    public void setVibPattern(double percDiff) {
+        if(percDiff>1.40){
+            vib.vibrate(none,0);
+        }else if(percDiff>1.20){
+            vib.vibrate(close,0);
+        }else if(percDiff >1.10){
+            vib.vibrate(closeer,0);
+        }else if(percDiff>0.80){
+            vib.vibrate(closest,0);
+        }else {
+            vib.vibrate(none,0);
         }
     }
 

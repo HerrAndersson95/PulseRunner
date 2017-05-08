@@ -32,7 +32,7 @@
         android:layout_marginTop="32dp"
         android:text="+ 0.0 m"
         android:textColor="@color/colorTransparentGreen"
-        android:textSize="60sp"
+        android:textSize="36sp"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -126,5 +126,20 @@
             android:textSize="30sp"
             android:visibility="invisible" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/runningInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/onOff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDifference" />
 
 </android.support.constraint.ConstraintLayout>

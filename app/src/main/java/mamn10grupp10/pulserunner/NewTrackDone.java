@@ -23,6 +23,7 @@ public class NewTrackDone extends AppCompatActivity {
     ArrayList<Double> newTrackList;
     String time;
     TextView tw;
+    Double totSec,totDist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,29 @@ public class NewTrackDone extends AppCompatActivity {
         nameoftracklist = new ArrayList<String>();
         fileManager = new FileManager(this.getApplicationContext());
         Intent intent = getIntent();
+        totDist = intent.getDoubleExtra("distance",0.0);
+        totSec = intent.getDoubleExtra("totSec",0.0);
         Bundle b = new Bundle();
         b = intent.getBundleExtra("bundle");
         time = intent.getStringExtra("time");
+
+        double distKm = totDist/1000;
+        double avgSpeed = totDist/totSec;
+        avgSpeed = avgSpeed*100;
+        avgSpeed = Math.round(avgSpeed);
+        avgSpeed = avgSpeed/100;
+        distKm = distKm*100;
+        distKm = Math.round(distKm);
+        distKm = distKm/100;
+
         newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
+        tw = (TextView) findViewById(R.id.infoText);
+        StringBuilder sb = new StringBuilder();
+        sb.append(time + "\n");
+        sb.append("Distance: "+distKm+" km\n");
+        sb.append("Average speed: "+avgSpeed+" m/s\n");
+
+        tw.setText(sb.toString());
     }
 
     //Cancel
