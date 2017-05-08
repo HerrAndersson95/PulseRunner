@@ -71,7 +71,7 @@ public class FileManager {
         /*Creats a ArrayList for the double values and then only adds those from the stringlist*/
         ArrayList<Double> list = new ArrayList<Double>();
         /*Starts at 2 instead of 0, so we skip the name of track and runner*/
-        for(int i = 2; i<stringList.size();i++){
+        for(int i = 0; i<stringList.size();i++){
             /*Converts the index value to double*/
             list.add(Double.parseDouble(stringList.get(i)));
         }
@@ -79,16 +79,13 @@ public class FileManager {
         return list;
     }
 
-    /*Returns the name of the track as a String*/
-    public String getTrackName(String fileString){
-        List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
-        return stringList.get(0);
+    public String creatStringFile(ArrayList<Double> listOfDiffs){
+        StringBuilder sb = new StringBuilder();
+        for(double value : listOfDiffs){
+            sb.append(value+"\n");
+        }
+        return sb.toString();
     }
 
-    /*Returns the name of the Runner as a string*/
-    public String getRunnerName(String fileString){
-        List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
-        return stringList.get(1);
-    }
 
 }

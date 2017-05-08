@@ -79,7 +79,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:backgroundTint="@color/colorTransparentPrimaryDark"
-        android:onClick="saveTrack"
+        android:onClick="onClickSave"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
