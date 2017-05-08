@@ -85,6 +85,10 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     protected long mCurrentLocationTime;
     protected long oldmCurrentLocationTime;
     protected String filename;
+    protected FileManager filemanager;
+    protected  String data;
+    protected ArrayList <Double> compareTrack;
+    protected ArrayList <Double> newTrack;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,10 +119,12 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         Intent intent = getIntent();
+
         filename = intent.getStringExtra("selectedTrack");
-        FileManager filemanager = new FileManager(this.getApplicationContext());
-        String data = filemanager.readFile(filename);
-        displayTime.setText(data);
+        filemanager = new FileManager(this.getApplicationContext());
+        data = filemanager.readFile(filename);
+        compareTrack = filemanager.returnDiffArray(data);
+        newtrack = new ArrayList<Double>();
 
         final Runnable updater = new Runnable() {
             public void run() {

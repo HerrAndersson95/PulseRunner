@@ -86,7 +86,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     protected long oldmCurrentLocationTime;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
