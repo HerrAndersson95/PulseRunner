@@ -44,9 +44,7 @@ public class RunActivity extends AppCompatActivity {
                     }
                 }
         );
-
     }
-
 
     public void onClickStart(View v){
         Intent intent = new Intent(this, RunActivityRunning.class);
