@@ -74,6 +74,8 @@ public class NewTrackDone extends AppCompatActivity {
          //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
         //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
         //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
+
+        fileManager.saveSpeed(0.1,fileName);
         Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
          Intent intent = new Intent(this, MainActivity.class);
          startActivity(intent);
