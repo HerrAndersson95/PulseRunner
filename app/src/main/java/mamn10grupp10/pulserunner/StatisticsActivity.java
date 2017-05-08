@@ -45,8 +45,6 @@ public class StatisticsActivity extends AppCompatActivity {
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         tw = (TextView) findViewById(R.id.infoBar);
         twSleep = (TextView) findViewById(R.id.sleepTime);
-        twLoader = (TextView) findViewById(R.id.loadedText);
-
         tw.setText("Speed: "+speed+" ms");
         twSleep.setText("Sleep: "+sleep+" ms");
         twLoader.setText("Loader...");

@@ -29,7 +29,7 @@ public class FileManager {
     public FileManager( Context context){
         this.context = context;
         sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
-
+        speed = 0.0;
     }
 
 
@@ -108,13 +108,13 @@ public class FileManager {
 
     /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
     public String saveSpeed(Double currentSpeed,String name ) {
-        if (speed> currentSpeed) {
-            currentSpeed = speed;
+        //if(currentSpeed <speed) {
             SharedPreferences.Editor edit = sp.edit();
-            edit.putString("route",name);// hämta rundansnamn
-            edit.putString("speed",currentSpeed.toString());
+            edit.putString("route", name);
+            edit.putString("speed", currentSpeed.toString());
+            edit.apply();
+       // }
 
-        }
         return speed.toString();
     }
 

@@ -8,15 +8,11 @@
 
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imageView11"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/s4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="-860dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:src="@drawable/s10" />
 
     <TextView
         android:id="@+id/read"
@@ -28,13 +24,13 @@
         android:layout_marginTop="16dp"
         android:text="@string/btn_main_statistics"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/show_speed" />
 
 </android.support.constraint.ConstraintLayout>
