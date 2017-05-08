@@ -132,6 +132,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         compareTrack = filemanager.returnDiffArray(data);
         newtrack = new ArrayList<Double>();
 
+
         final Runnable updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {

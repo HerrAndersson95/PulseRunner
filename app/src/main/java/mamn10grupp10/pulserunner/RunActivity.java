@@ -29,14 +29,13 @@ public class RunActivity extends AppCompatActivity {
         view = (TextView)findViewById(R.id.textView11);
         tracks = getFilesDir().list();
         list = (ListView) findViewById(R.id.listview);
+
         String[] tracks = getFilesDir().list();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
-
-
         list.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
-
+<
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedTrack = String.valueOf(parent.getItemAtPosition(position));
