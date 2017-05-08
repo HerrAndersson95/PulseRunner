@@ -36,6 +36,12 @@ public class RunActivityFinish extends AppCompatActivity {
         distance = newTrackList.get(newTrackList.size()-1);
         double distKm = distance/1000;
         double avgSpeed = distance/totSec;
+        avgSpeed = avgSpeed*100;
+        avgSpeed = Math.round(avgSpeed);
+        avgSpeed = avgSpeed/100;
+        distKm = distKm*100;
+        distKm = Math.round(distKm);
+        distKm = distKm/100;
 
         String infoTxt = "My average speed was: " + avgSpeed +" m/s"+ "\n"+
                 "Distance: "+distKm+" km"+"\n"+
