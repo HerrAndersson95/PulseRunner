@@ -23,6 +23,7 @@
     <string name="Uploadrun">readfile</string>
     <string name="SaveRun">writefile</string>
     <string name="PreviewRun">Preview_run</string>
+    <string name="show_speed">speed</string>
 
 
 </resources>

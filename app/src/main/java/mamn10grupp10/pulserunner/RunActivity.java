@@ -1,18 +1,28 @@
 package mamn10grupp10.pulserunner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+
 public class RunActivity extends AppCompatActivity {
     ListView list;
+
+    TextView view;
+    ListAdapter adapter;
+    String[] tracks;
+    String selectedTrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +31,21 @@ public class RunActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list =(ListView)findViewById(R.id.listview);
         String[] tracks = getFilesDir().list();
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
+
     }
+
+
+
 
     public void onClickStart(View v){
         Intent intent = new Intent(this, RunActivityRunning.class);
+        intent.putExtra("selectedTrack",selectedTrack);
         startActivity(intent);
     }
+
+
 
 
 
