@@ -16,19 +16,24 @@ import java.lang.String;
 
 
 public class NewTest extends AppCompatActivity {
-    String path;
     TextView textv;
     EditText textData;
     EditText textFilename;
     Button save;
     Button load;
-
-
+    SharedPreferences sp ;
+    FileManager  fm;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_test);
-
+        textv = (TextView)findViewById(R.id.read);
+            fm = new FileManager(this);
+       textv.setText("Best average speed :"+ fm.DisplayNameOfRoute() + "is " + fm.DisplaySpeed());
 
     }
+
+
+
+
 }

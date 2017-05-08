@@ -13,6 +13,8 @@ import org.w3c.dom.Text;
 
 public class RunActivity extends AppCompatActivity {
     ListView list;
+    TextView txt;
+    ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +23,20 @@ public class RunActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list =(ListView)findViewById(R.id.listview);
         String[] tracks = getFilesDir().list();
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
+
     }
+
+
+
 
     public void onClickStart(View v){
         Intent intent = new Intent(this, RunActivityRunning.class);
         startActivity(intent);
     }
+
+
 
 
 
