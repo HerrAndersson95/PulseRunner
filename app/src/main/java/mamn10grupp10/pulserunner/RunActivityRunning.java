@@ -91,6 +91,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     protected ArrayList <Double> newTrack;
 
     private String trackName;
+    private int counter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +103,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         timeunit = 10;
         newtrack = new ArrayList<>();
         totDist = 0;
+        counter = 0;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -122,10 +124,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         filename = intent.getStringExtra("selectedTrack");
-        FileManager filemanager = new FileManager(this.getApplicationContext());
-        String data = filemanager.readFile(filename);
-        displayTime.setText(data);
-        displayTitle.setText(filename);
+
 
         filemanager = new FileManager(this.getApplicationContext());
         data = filemanager.readFile(filename);
@@ -148,6 +147,9 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
                         logDistances.add(totDist);
+                        counter++;
+                        double compare = compareTrack.get(counter);
+                        setVibPattern(totDist,compare);
                         double distDiff = manager.getDistanceDifference(a,b);
                         if (distDiff <0){
                             displayValue.setTextColor(Color.argb(188, 121, 32, 63));
@@ -269,23 +271,25 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
     /*The vib pattern will be set accordingly to the percentage of the track
     * Compares the saved tracks meters towards what you've ran yourself*/
-    public void setVibPattern(int thisTrackMeter, int savedTrackMeter) {
+    public void setVibPattern(double thisTrackMeter, double savedTrackMeter) {
         double diff = thisTrackMeter - savedTrackMeter;
         /*If you are behind*/
         if (diff < 0) {
-            double percentage = thisTrackMeter % savedTrackMeter;
+            double percentage = thisTrackMeter / savedTrackMeter;
             if (percentage > 90) {
                 vib.vibrate(closest, 0);
+            }else{
+                vib.vibrate(close,0);
             }
 
             /*Els you are ahead*/
         } else {
-            double percentage = thisTrackMeter % savedTrackMeter;
-            if (percentage < 10) {
+            double percentage = thisTrackMeter / savedTrackMeter;
+            if (percentage < 1.10) {
                 vib.vibrate(closest, 0);
-            } else if (percentage < 20) {
+            } else if (percentage < 1.20) {
                 vib.vibrate(closeer, 0);
-            } else if (percentage < 40) {
+            } else if (percentage < 1.40) {
                 vib.vibrate(close, 0);
             } else {
                 vib.cancel();
