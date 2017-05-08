@@ -120,7 +120,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         finish = (Button) findViewById(R.id.btnFinish);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        
+
         filename = intent.getStringExtra("selectedTrack");
 <<<<<<< HEAD
         FileManager filemanager = new FileManager(this.getApplicationContext());
