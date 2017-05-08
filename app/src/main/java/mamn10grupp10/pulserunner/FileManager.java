@@ -17,9 +17,6 @@ import java.util.List;
 import android.content.SharedPreferences;
 
 
-
-
-
 /**
  * Created by annelinegjersem on 2017-05-07.
  */
@@ -34,6 +31,7 @@ public class FileManager {
         sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
 
     }
+
 
     public String readFile(String filename) {
         String data = null;
@@ -74,7 +72,7 @@ public class FileManager {
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         /*Creats a ArrayList for the double values and then only adds those from the stringlist*/
         ArrayList<Double> list = new ArrayList<Double>();
-        /*Starts at 2 instead of 0, so we skip the name of track and runner*/
+        /*Starts at 0, so we skip the name of track and runner*/
         for(int i = 0; i<stringList.size();i++){
             /*Converts the index value to double*/
             list.add(Double.parseDouble(stringList.get(i)));
