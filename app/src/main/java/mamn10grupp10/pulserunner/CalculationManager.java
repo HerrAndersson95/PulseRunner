@@ -46,4 +46,6 @@ public class CalculationManager {
         return ((distanceNew/time) - (distanceOld/time)) * 3.6;
     }
 
+
+
 }

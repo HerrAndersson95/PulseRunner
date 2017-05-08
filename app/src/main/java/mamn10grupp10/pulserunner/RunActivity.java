@@ -18,6 +18,7 @@ import java.io.File;
 
 public class RunActivity extends AppCompatActivity {
     ListView list;
+
     TextView view;
     ListAdapter adapter;
     String[] tracks;
@@ -28,15 +29,14 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        list =(ListView)findViewById(R.id.listview);
-        view = (TextView)findViewById(R.id.textView11);
-        tracks = getFilesDir().list();
+        list = (ListView) findViewById(R.id.listview);
+        String[] tracks = getFilesDir().list();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
 
 
         list.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
+                new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedTrack = String.valueOf(parent.getItemAtPosition(position));
@@ -51,6 +51,8 @@ public class RunActivity extends AppCompatActivity {
         intent.putExtra("selectedTrack",selectedTrack);
         startActivity(intent);
     }
+
+
 
 
 

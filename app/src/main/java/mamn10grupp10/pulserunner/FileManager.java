@@ -17,20 +17,21 @@ import java.util.List;
 import android.content.SharedPreferences;
 
 
-
-
-
 /**
  * Created by annelinegjersem on 2017-05-07.
  */
 
 public class FileManager {
     private Context context;
+    SharedPreferences sp ;
+    Double speed;
 
     public FileManager( Context context){
         this.context = context;
+        sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
 
     }
+
 
     public String readFile(String filename) {
         String data = null;
@@ -71,7 +72,7 @@ public class FileManager {
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         /*Creats a ArrayList for the double values and then only adds those from the stringlist*/
         ArrayList<Double> list = new ArrayList<Double>();
-        /*Starts at 2 instead of 0, so we skip the name of track and runner*/
+        /*Starts at 0, so we skip the name of track and runner*/
         for(int i = 0; i<stringList.size();i++){
             /*Converts the index value to double*/
             list.add(Double.parseDouble(stringList.get(i)));
@@ -94,6 +95,27 @@ public class FileManager {
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         return stringList.get(1);
     }
-    
+
+    public String DisplayNameOfRoute() {
+        return sp.getString("name", "");
+
+    }
+    public String DisplaySpeed(){
+
+        return sp.getString("speed","");
+
+    }
+
+    /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
+    public String saveSpeed(Double currentSpeed,String name ) {
+        if (speed> currentSpeed) {
+            currentSpeed = speed;
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("route",name);// hämta rundansnamn
+            edit.putString("speed",currentSpeed.toString());
+
+        }
+        return speed.toString();
+    }
 
 }
