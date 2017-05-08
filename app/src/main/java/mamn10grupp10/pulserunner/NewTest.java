@@ -29,7 +29,7 @@ public class NewTest extends AppCompatActivity {
         setContentView(R.layout.activity_new_test);
         textv = (TextView)findViewById(R.id.read);
             fm = new FileManager(this);
-       textv.setText(" Your best track : " + fm.DisplayNameOfRoute()+ "with the speed:" + fm.DisplaySpeed());
+       textv.setText(" Your best track : " + fm.DisplayNameOfRoute()+ " \n speed:" + fm.DisplaySpeed());
 
 
     }

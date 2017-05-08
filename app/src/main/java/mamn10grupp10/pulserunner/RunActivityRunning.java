@@ -122,17 +122,15 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         filename = intent.getStringExtra("selectedTrack");
-<<<<<<< HEAD
-        FileManager filemanager = new FileManager(this.getApplicationContext());
-        String data = filemanager.readFile(filename);
+
         displayTime.setText(data);
         displayTitle.setText(filename);
-=======
+
         filemanager = new FileManager(this.getApplicationContext());
         data = filemanager.readFile(filename);
         compareTrack = filemanager.returnDiffArray(data);
         newtrack = new ArrayList<Double>();
->>>>>>> origin/master
+
 
         final Runnable updater = new Runnable() {
             public void run() {
