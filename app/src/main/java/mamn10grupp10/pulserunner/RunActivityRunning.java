@@ -94,7 +94,6 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
         logDistances = new ArrayList<Double>();
         Intent intent = getIntent();
-        trackName = intent.getStringExtra("trackName");
 
         timeunit = 10;
         newtrack = new ArrayList<>();
@@ -123,6 +122,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         FileManager filemanager = new FileManager(this.getApplicationContext());
         String data = filemanager.readFile(filename);
         displayTime.setText(data);
+        displayTitle.setText(filename);
 
         final Runnable updater = new Runnable() {
             public void run() {
@@ -221,7 +221,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         double totSec = stopwatch.getTimeElapsedAsLong() /1000;
         intent.putExtra("trackName",trackName);
         intent.putExtra("totSec",totSec);
-        intent.putExtra("trackName",trackName);
+        intent.putExtra("trackName",filename);
         Bundle b = new Bundle();
         b.putSerializable("newtrack",logDistances);
         intent.putExtra("bundle",b);
