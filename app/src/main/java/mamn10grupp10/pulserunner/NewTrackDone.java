@@ -67,16 +67,6 @@ public class NewTrackDone extends AppCompatActivity {
          Intent intent = new Intent(this, MainActivity.class);
          startActivity(intent);
 
-    /*    EditText etTrack = (EditText) findViewById(R.id.trackName);
-        EditText etRunner = (EditText) findViewById(R.id.runnerName);
-        String trackName = etTrack.getText().toString();
-        String runnerName = etRunner.getText().toString();
-        if(!runnerName.isEmpty() && !trackName.isEmpty()){
-            Intent intent = new Intent(this, MainActivity.class);
-            // INSERT SAVE HERE
-            startActivity(intent);
-        }
-        */
     }
 
 }

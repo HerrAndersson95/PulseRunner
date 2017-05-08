@@ -13,6 +13,11 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import android.content.SharedPreferences;
+
+
+
+
 
 /**
  * Created by annelinegjersem on 2017-05-07.
@@ -82,5 +87,12 @@ public class FileManager {
         return sb.toString();
     }
 
+
+    /*Returns the name of the Runner as a string*/
+    public String getRunnerName(String fileString){
+        List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
+        return stringList.get(1);
+    }
+    
 
 }
