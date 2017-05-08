@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NewTrackDone extends AppCompatActivity {
     EditText nameOfTrack;
@@ -18,6 +21,8 @@ public class NewTrackDone extends AppCompatActivity {
     ArrayList<String> nameoftracklist;
     FileManager fileManager;
     ArrayList<Double> newTrackList;
+    String time;
+    TextView tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class NewTrackDone extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle b = new Bundle();
         b = intent.getBundleExtra("bundle");
+        time = intent.getStringExtra("time");
         newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
     }
 
@@ -62,8 +68,13 @@ public class NewTrackDone extends AppCompatActivity {
     }
 
     public void onClickSave(View v){
-         fileManager.writeFile(nameOfTrack.getText().toString(),fileManager.creatStringFile(newTrackList));
-         Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String fileName = nameOfTrack.getText().toString() + " - " + time + " - " + timeStamp;
+        fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
+         //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
+        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
+        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
+        Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
          Intent intent = new Intent(this, MainActivity.class);
          startActivity(intent);
 

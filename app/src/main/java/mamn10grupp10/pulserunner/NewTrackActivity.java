@@ -169,10 +169,11 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     public void onClickFinish(View v){
         stopwatch.pause();
         Intent intent = new Intent(this, NewTrackDone.class);
-        //intent.putExtra("newtrack",newtrack);
+        intent.putExtra("newtrack",newtrack);
         Bundle b = new Bundle();
         b.putSerializable("newtrack",newtrack);
         intent.putExtra("bundle",b);
+        intent.putExtra("time",displayTime.getText().toString());
         startActivity(intent);
     }
 
