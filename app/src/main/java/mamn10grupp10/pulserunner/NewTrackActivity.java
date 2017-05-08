@@ -79,7 +79,7 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
         setContentView(R.layout.activity_new_track);
 
         timeunit = 5;
-        newtrack = new ArrayList<>();
+        newtrack = new ArrayList<Double>();
         totDist = 0;
 
         stopwatch = new StopWatch();
@@ -169,6 +169,10 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     public void onClickFinish(View v){
         stopwatch.pause();
         Intent intent = new Intent(this, NewTrackDone.class);
+        //intent.putExtra("newtrack",newtrack);
+        Bundle b = new Bundle();
+        b.putSerializable("newtrack",newtrack);
+        intent.putExtra("bundle",b);
         startActivity(intent);
     }
 

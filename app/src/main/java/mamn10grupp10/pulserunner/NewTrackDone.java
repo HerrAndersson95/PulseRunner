@@ -17,6 +17,7 @@ public class NewTrackDone extends AppCompatActivity {
     Button save;
     ArrayList<String> nameoftracklist;
     FileManager fileManager;
+    ArrayList<Double> newTrackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,10 @@ public class NewTrackDone extends AppCompatActivity {
         save = (Button)findViewById(R.id.save);
         nameoftracklist = new ArrayList<String>();
         fileManager = new FileManager(this.getApplicationContext());
+        Intent intent = getIntent();
+        Bundle b = new Bundle();
+        b = intent.getBundleExtra("bundle");
+        newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
     }
 
     //Cancel
@@ -57,7 +62,7 @@ public class NewTrackDone extends AppCompatActivity {
     }
 
     public void onClickSave(View v){
-         fileManager.writeFile(nameOfTrack.getText().toString(),"23456743");
+         fileManager.writeFile(nameOfTrack.getText().toString(),fileManager.creatStringFile(newTrackList));
          Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
          Intent intent = new Intent(this, MainActivity.class);
          startActivity(intent);
