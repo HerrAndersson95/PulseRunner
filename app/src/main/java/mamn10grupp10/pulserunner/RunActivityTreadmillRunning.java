@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -60,11 +61,13 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     private final long[] close = {0,200,1500};
     private final long[] closeer = {0,200,800};
     private final long[] closest = {0,200,200};
+    private final long[] none = {0,0,0};
 
 
     /*Varibles to send*/
     private int distance;
     private int hours,mins,ms;
+    MediaPlayer mediaPlayer;
 
     //Variables for GPS
     protected static final String TAG = "MainActivity";
@@ -84,13 +87,13 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     protected Location oldmCurrentLocation;
     protected long mCurrentLocationTime;
     protected long oldmCurrentLocationTime;
-
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_treadmill_running);
-        timeunit = 2;
+        timeunit = 5;
         //INIT SPEED VALUES
         mySpeed = 0;
         mySpeedSmooth = 0;
@@ -112,6 +115,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         speed = intent.getIntExtra("speed",0);
         tw.setText(speed + " km/h");
 
+
         final Runnable updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {
@@ -128,10 +132,19 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
 
                     //CALLED EVERY TIMEUNIT SECONDS
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-                        setVibPattern();
+
                         System.out.println(mySpeedSmooth);
                         myAvgSpeed += mySpeedSmooth;
                         totMeters += Math.round(Math.round((mySpeedSmooth/3.6) * timeunit));
+                        // (m/s)*(antalloggningar*5)
+                        double compare = speed*counter*timeunit;
+                        double vibPerc = totDist/compare;
+                        vibPerc = vibPerc*100;
+                        vibPerc = Math.round(vibPerc);
+                        vibPerc = vibPerc/100;
+                        setVibPattern(vibPerc);
+                        tw.setText("You ran: "+totDist+"\nYou should've: "+compare+"\nDiffPerc: "+vibPerc);
+                        counter++;
                     }
                     displayValue.setText(Double.toString(mySpeedSmooth) + " km/h");
                 }
@@ -148,7 +161,8 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                 }
                 else{
                     stopwatch.resume();
-                    setVibPattern();
+                    //Bör ej behövas, fortsätter efter 5 sec
+                    //setVibPattern();
                     displayTitle.setText("Running");
                     startUpdatesHandler();  //Start GPS
                 }
@@ -209,22 +223,23 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     /*Sets the vibration according to if you are keeping the avg speed u want.
     * The more freq vibrations indicate on the further away from your avg speed
     * So hurry up!*/
-    public void setVibPattern(){
-        if(mySpeedSmooth >= speed){
-            vib.cancel();
-        } else{
-            double percentage = mySpeedSmooth % speed;
-            displayTitle.setText(mySpeedSmooth+"/"+speed+"/"+Double.toString(percentage));
-            if(percentage > 75){
-                vib.vibrate(close,0);
-
-            }else if(percentage > 50){
-                vib.vibrate(closeer,0);
-
-            }else {
-                vib.vibrate(closest,0);
-
-            }
+    public void setVibPattern(double percDiff) {
+        if(percDiff>1){
+            vib.vibrate(none,0);
+        }else if(percDiff>0.9){
+            vib.vibrate(closest,0);
+            mediaPlayer = MediaPlayer.create(this,R.raw.highest);
+            mediaPlayer.start();
+        }else if(percDiff >0.80){
+            vib.vibrate(closeer,0);
+            mediaPlayer = MediaPlayer.create(this,R.raw.higher);
+            mediaPlayer.start();
+        }else if(percDiff>0.70){
+            vib.vibrate(close,0);
+            mediaPlayer = MediaPlayer.create(this,R.raw.high);
+            mediaPlayer.start();
+        }else {
+            vib.vibrate(none,0);
         }
     }
 
@@ -441,7 +456,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         mCurrentLocationTime = mCurrentLocation.getTime();
         oldmCurrentLocationTime = oldmCurrentLocation.getTime();
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        vib.vibrate(60);
+        //vib.vibrate(60);
         updateLocationUI();
     }
 

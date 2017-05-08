@@ -103,7 +103,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         logDistances = new ArrayList<Double>();
         Intent intent = getIntent();
 
-        timeunit = 10;
+        timeunit = 5;
         newtrack = new ArrayList<>();
         totDist = 0;
         counter = 0;
@@ -149,7 +149,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
-                    if((elapsedTimeLong/100) % (timeunit*5) == 0){
+                    if((elapsedTimeLong/100) % (timeunit*10) == 0){
                         logDistances.add(totDist);
                         double compare = compareTrack.get(counter);
 
