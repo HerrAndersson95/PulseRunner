@@ -32,17 +32,13 @@ public class FileManager {
         try {
             fs = context.openFileInput(filename);
             data = (convertStreamToString(fs));
-
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return data;
     }
 
     public void writeFile(String filename,String inputdata) {
-
         try {
             FileOutputStream os = context.openFileOutput(filename, context.MODE_PRIVATE);
             os.write(inputdata.getBytes());
@@ -50,7 +46,6 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static String convertStreamToString(InputStream is) throws Exception {
