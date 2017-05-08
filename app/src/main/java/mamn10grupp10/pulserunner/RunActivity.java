@@ -35,7 +35,6 @@ public class RunActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         list.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
-<
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedTrack = String.valueOf(parent.getItemAtPosition(position));
