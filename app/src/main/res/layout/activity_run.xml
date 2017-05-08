@@ -87,7 +87,7 @@
             android:layout_weight="0.70" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/startButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="46dp"
@@ -101,6 +101,7 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="24sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"

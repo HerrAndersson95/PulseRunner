@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class RunActivity extends AppCompatActivity {
     ListAdapter adapter;
     String[] tracks;
     String selectedTrack;
+    Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class RunActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list = (ListView) findViewById(R.id.listview);
         String[] tracks = getFilesDir().list();
+
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
         list.setAdapter(adapter);
 
@@ -40,6 +43,8 @@ public class RunActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedTrack = String.valueOf(parent.getItemAtPosition(position));
+                        startButton = (Button) findViewById(R.id.startButton);
+                        startButton.setVisibility(View.VISIBLE);
                         Toast.makeText(RunActivity.this, selectedTrack, Toast.LENGTH_SHORT).show();
                     }
                 }
