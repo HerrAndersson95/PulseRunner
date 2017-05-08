@@ -85,10 +85,14 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     protected long mCurrentLocationTime;
     protected long oldmCurrentLocationTime;
 
+    private String trackName;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
         logDistances = new ArrayList<Double>();
+        Intent intent = getIntent();
+        trackName = intent.getStringExtra("trackName");
 
         timeunit = 10;
         newtrack = new ArrayList<>();
@@ -127,6 +131,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     displayTime.setText(elapsedTime);
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
+                        logDistances.add(totDist);
                         double distDiff = manager.getDistanceDifference(a,b);
                         if (distDiff <0){
                             displayValue.setTextColor(Color.argb(188, 121, 32, 63));
@@ -206,16 +211,14 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         Intent intent = new Intent(this, RunActivityFinish.class);
         /*Change these to the right value when we've got the GPS part etc...*/
         //int avgSpeed = getAvgSpeed();
-        int avgSpeed = 66;
-        hours = 13;
-        mins = 37;
-        ms = 99;
-        distance = (int)7035.50;
-        intent.putExtra("myAvgSpeed",avgSpeed);
-        intent.putExtra("hours",hours);
-        intent.putExtra("mins",mins);
-        intent.putExtra("ms",ms);
-        intent.putExtra("distance",distance);
+        double totSec = stopwatch.getTimeElapsedAsLong() /1000;
+        intent.putExtra("trackName",trackName);
+        intent.putExtra("totSec",totSec);
+        intent.putExtra("trackName",trackName);
+        Bundle b = new Bundle();
+        b.putSerializable("newtrack",logDistances);
+        intent.putExtra("bundle",b);
+        intent.putExtra("time",displayTime.getText().toString());
         startActivity(intent);
     }
 
