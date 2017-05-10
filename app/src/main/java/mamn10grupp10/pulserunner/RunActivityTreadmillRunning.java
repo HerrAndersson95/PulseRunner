@@ -32,14 +32,26 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.util.Date;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import static android.hardware.SensorManager.getRotationMatrix;
 
-public class RunActivityTreadmillRunning extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class RunActivityTreadmillRunning extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener {
+
+    private SensorManager sm;
+    private Sensor prox;
+    private float[] proxValues;
+    private boolean proximityPaused;
 
     /*Varibles for speed*/
     private int speed = 5;  //VAR SPEED
     private double myAvgSpeed;
     private double totDist = 0;
     private int totMeters = 0;
+
+    private Runnable updater;
 
     private TextView tw;
     TextView displayTitle;
@@ -62,6 +74,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     private final long[] closeer = {0,200,800};
     private final long[] closest = {0,200,200};
     private final long[] none = {0,0,0};
+    private double vibPerc;
 
 
     /*Varibles to send*/
@@ -99,6 +112,12 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         mySpeedSmooth = 0;
         totDist = 0;
 
+        vibPerc = 0;
+
+        sm = (SensorManager)getSystemService(SENSOR_SERVICE);   //skapa manager för sensorer
+        prox = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        proximityPaused = false;
+
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         stopwatch = new StopWatch();
         handler = new Handler();
@@ -116,7 +135,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         tw.setText(speed + " km/h");
 
 
-        final Runnable updater = new Runnable() {
+        updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {
                     if (!stopwatch.hasItStarted()) {
@@ -138,7 +157,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                         totMeters += Math.round(Math.round((mySpeedSmooth/3.6) * timeunit));
                         // (m/s)*(antalloggningar*5)
                         double compare = speed*counter*timeunit;
-                        double vibPerc = totDist/compare;
+                        vibPerc = totDist/compare;
                         vibPerc = vibPerc*100;
                         vibPerc = Math.round(vibPerc);
                         vibPerc = vibPerc/100;
@@ -153,6 +172,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                /*
                 if(!onOffTime.isChecked()){
                     stopwatch.pause();
                     vib.cancel();
@@ -166,6 +186,8 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                     displayTitle.setText("Running");
                     startUpdatesHandler();  //Start GPS
                 }
+                */
+                onPauseAndContinue();
                 handler.post(updater);
             }
         });
@@ -174,6 +196,40 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         buildGoogleApiClient();
         createLocationRequest();
         buildLocationSettingsRequest();
+    }
+
+    public void onPauseAndContinue(){
+        if(proximityPaused){
+            if(!onOffTime.isChecked()){
+                onOffTime.setChecked(true);
+                stopwatch.resume();
+                setVibPattern(vibPerc);
+                displayTitle.setText("Running");
+                startUpdatesHandler();  //Start GPS
+                System.out.println("STARTED - WITH PROXIMITY");
+            } else {
+                proximityPaused = false;
+                onOffTime.setChecked(false); //Sätter knapp på paus
+                stopwatch.pause();
+                vib.cancel();
+                displayTitle.setText("Paused");
+                stopUpdatesnHandler(); //Pauses GPS
+                System.out.println("PAUSED - WITH PROXIMITY");
+            }
+        } else if (!onOffTime.isChecked()){
+            stopwatch.pause();
+            vib.cancel();
+            displayTitle.setText("Paused");
+            stopUpdatesnHandler(); //Pauses GPS
+            System.out.println("PAUSED - WITH BUTTON");
+        } else {
+            stopwatch.resume();
+            setVibPattern(vibPerc);
+            displayTitle.setText("Running");
+            startUpdatesHandler();  //Start GPS
+            System.out.println("STARTED - BUTTON");
+        }
+        handler.post(updater);
     }
 
     public void onClickStop(View v){
@@ -279,6 +335,36 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+
+
+    //Proximity Sensor
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+    public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
+            proxValues = event.values;
+            //Recieved a change in Sensors
+            if(proxValues != null){
+                //System.out.println("PROXIMITY: " + proxValues[0]);
+                //HAND IS OVER PROXIMITY
+                if(proxValues[0] == 0){
+                    //System.out.println("HAND OVER PROX");
+                    if(proximityPaused){
+                        proximityPaused = false;
+                    } else {
+                        proximityPaused = true;
+                    }
+                    onPauseAndContinue();
+                }
+            }
+        }
+    }
+
+
+
+
 
 
 
@@ -403,6 +489,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         // Within {@code onPause()}, we pause location updates, but leave the
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
+        sm.registerListener(this, prox, SensorManager.SENSOR_DELAY_GAME);
         if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
@@ -413,6 +500,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     protected void onPause() {
         super.onPause();
         // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
+        sm.unregisterListener(this);
         if (mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
         }
@@ -422,6 +510,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     @Override
     protected void onStop() {
         super.onStop();
+        sm.unregisterListener(this);
         mGoogleApiClient.disconnect();
         vib.cancel();
     }
