@@ -36,7 +36,13 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RunActivityRunning extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import static android.hardware.SensorManager.getRotationMatrix;
+
+public class RunActivityRunning extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SensorEventListener {
 
     TextView displayTitle;
     TextView displayTime;
@@ -61,6 +67,12 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     private final long[] closest = {0, 200, 200};
     private final long[] superBehind = {0, 200, 5000};
     private final long[] none = {0,0,0};
+
+    //Variables for sensor
+    private SensorManager sm;
+    private Sensor prox;
+    private float[] proxValues;
+    private boolean proximityPaused;
 
     /*Varibles to send*/
     private int distance;
@@ -96,6 +108,8 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     private int counter;
     private TextView twInfo;
 
+    private Runnable updater;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_running);
@@ -107,6 +121,10 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         newtrack = new ArrayList<>();
         totDist = 0;
         counter = 0;
+
+        sm = (SensorManager)getSystemService(SENSOR_SERVICE);   //skapa manager för sensorer
+        prox = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        proximityPaused = false;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -136,7 +154,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         newtrack = new ArrayList<Double>();
 
 
-        final Runnable updater = new Runnable() {
+        updater = new Runnable() {
             public void run() {
                 if (onOffTime.isChecked()) {
                     if (!stopwatch.hasItStarted()) {
@@ -193,6 +211,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         /*Start/Pause/Continue-button */
         onOffTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                /*
                 if (!onOffTime.isChecked()) {
                     stopwatch.pause();
                     displayTitle.setText("Paused");
@@ -202,6 +221,8 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     displayTitle.setText("Running");
                     startUpdatesHandler(); //Start GPS
                 }
+                */
+                onPauseAndContinue();
                 handler.post(updater);
             }
         });
@@ -211,6 +232,40 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         buildGoogleApiClient();
         createLocationRequest();
         buildLocationSettingsRequest();
+    }
+
+    public void onPauseAndContinue(){
+        if(proximityPaused){
+            if(!onOffTime.isChecked()){
+                onOffTime.setChecked(true);
+                stopwatch.resume();
+                //setVibPattern(vibPerc);
+                displayTitle.setText("Running");
+                //startUpdatesHandler();  //Start GPS
+                System.out.println("STARTED - WITH PROXIMITY");
+            } else {
+                proximityPaused = false;
+                onOffTime.setChecked(false); //Sätter knapp på paus
+                stopwatch.pause();
+                vib.cancel();
+                displayTitle.setText("Paused");
+                //stopUpdatesnHandler(); //Pauses GPS
+                System.out.println("PAUSED - WITH PROXIMITY");
+            }
+        } else if (!onOffTime.isChecked()){
+            stopwatch.pause();
+            vib.cancel();
+            displayTitle.setText("Paused");
+            //stopUpdatesnHandler(); //Pauses GPS
+            System.out.println("PAUSED - WITH BUTTON");
+        } else {
+            stopwatch.resume();
+            //setVibPattern(vibPerc);
+            displayTitle.setText("Running");
+            //startUpdatesHandler();  //Start GPS
+            System.out.println("STARTED - BUTTON");
+        }
+        handler.post(updater);
     }
 
     public void onClickStop(View v) {
@@ -310,6 +365,32 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         return bd.doubleValue();
     }
 
+
+
+
+    //Proximity Sensor
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+    public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
+            proxValues = event.values;
+            //Recieved a change in Sensors
+            if(proxValues != null){
+                //System.out.println("PROXIMITY: " + proxValues[0]);
+                //HAND IS OVER PROXIMITY
+                if(proxValues[0] == 0){
+                    //System.out.println("HAND OVER PROX");
+                    if(proximityPaused){
+                        proximityPaused = false;
+                    } else {
+                        proximityPaused = true;
+                    }
+                    onPauseAndContinue();
+                }
+            }
+        }
+    }
 
 
 
@@ -435,6 +516,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         // Within {@code onPause()}, we pause location updates, but leave the
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
+        sm.registerListener(this, prox, SensorManager.SENSOR_DELAY_GAME);
         if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
@@ -444,6 +526,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     @Override
     protected void onPause() {
         super.onPause();
+        sm.unregisterListener(this);
         // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
         if (mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
@@ -454,6 +537,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     @Override
     protected void onStop() {
         super.onStop();
+        sm.unregisterListener(this);
         mGoogleApiClient.disconnect();
         vib.cancel();
     }
