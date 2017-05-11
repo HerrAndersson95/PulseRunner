@@ -23,7 +23,9 @@ public class NewTrackDone extends AppCompatActivity {
     ArrayList<Double> newTrackList;
     String time;
     TextView tw;
-    Double totSec,totDist;
+    double totSec,totDist;
+    double avgSpeed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class NewTrackDone extends AppCompatActivity {
         time = intent.getStringExtra("time");
 
         double distKm = totDist/1000;
-        double avgSpeed = totDist/totSec;
+        avgSpeed = totDist/totSec;
         avgSpeed = avgSpeed*100;
         avgSpeed = Math.round(avgSpeed);
         avgSpeed = avgSpeed/100;
@@ -92,15 +94,14 @@ public class NewTrackDone extends AppCompatActivity {
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
             String fileName = nameOfTrack.getText().toString() + " - " + time + " - " + timeStamp;
             fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
-            //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
-            //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
-            //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
-
-            //fileManager.saveSpeed(0.1,fileName);
+            fileManager.saveSpeed(avgSpeed,nameOfTrack.getText().toString());
             Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+        //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
+        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
+        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
 
 
     }

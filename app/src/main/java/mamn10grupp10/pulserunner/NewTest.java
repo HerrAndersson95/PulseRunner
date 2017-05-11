@@ -29,6 +29,9 @@ public class NewTest extends AppCompatActivity {
         setContentView(R.layout.activity_new_test);
         textv = (TextView)findViewById(R.id.read);
             fm = new FileManager(this);
+        if(fm.Noruns()) {
+
+        }
        textv.setText(" Your best track : " + fm.DisplayNameOfRoute()+ " \n speed:" + fm.DisplaySpeed());
 
 

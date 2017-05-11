@@ -103,7 +103,6 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     protected  String data;
     protected ArrayList <Double> compareTrack;
     protected ArrayList <Double> newTrack;
-
     private String trackName;
     private int counter;
     private TextView twInfo;

@@ -23,10 +23,10 @@ import android.content.SharedPreferences;
 
 public class FileManager {
     private Context context;
-    SharedPreferences sp ;
+    SharedPreferences sp;
     Double speed;
 
-    public FileManager( Context context){
+    public FileManager(Context context) {
         this.context = context;
         sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
         speed = 0.0;
@@ -45,7 +45,7 @@ public class FileManager {
         return data;
     }
 
-    public void writeFile(String filename,String inputdata) {
+    public void writeFile(String filename, String inputdata) {
         try {
             FileOutputStream os = context.openFileOutput(filename, context.MODE_PRIVATE);
             os.write(inputdata.getBytes());
@@ -67,13 +67,13 @@ public class FileManager {
     }
 
     /*Input the string from the file. Output only the double data with diffMeter*/
-    public ArrayList<Double> returnDiffArray(String fileString){
+    public ArrayList<Double> returnDiffArray(String fileString) {
         /*Creats a list with both name of track and runner, as well as double values*/
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         /*Creats a ArrayList for the double values and then only adds those from the stringlist*/
         ArrayList<Double> list = new ArrayList<Double>();
         /*Starts at 0, so we skip the name of track and runner*/
-        for(int i = 0; i<stringList.size();i++){
+        for (int i = 0; i < stringList.size(); i++) {
             /*Converts the index value to double*/
             list.add(Double.parseDouble(stringList.get(i)));
         }
@@ -81,17 +81,17 @@ public class FileManager {
         return list;
     }
 
-    public String creatStringFile(ArrayList<Double> listOfDiffs){
+    public String creatStringFile(ArrayList<Double> listOfDiffs) {
         StringBuilder sb = new StringBuilder();
-        for(double value : listOfDiffs){
-            sb.append(value+"\n");
+        for (double value : listOfDiffs) {
+            sb.append(value + "\n");
         }
         return sb.toString();
     }
 
 
     /*Returns the name of the Runner as a string*/
-    public String getRunnerName(String fileString){
+    public String getRunnerName(String fileString) {
         List<String> stringList = new ArrayList<>(Arrays.asList(fileString.split("\n")));
         return stringList.get(1);
     }
@@ -100,22 +100,29 @@ public class FileManager {
         return sp.getString("name", "");
 
     }
-    public String DisplaySpeed(){
 
-        return sp.getString("speed","");
+    public String DisplaySpeed() {
+
+        return sp.getString("speed", "");
 
     }
 
     /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
-    public String saveSpeed(Double currentSpeed,String name ) {
+    public String saveSpeed(Double currentSpeed, String name) {
         //if(currentSpeed <speed) {
-            SharedPreferences.Editor edit = sp.edit();
-            edit.putString("route", name);
-            edit.putString("speed", currentSpeed.toString());
-            edit.apply();
-       // }
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("route", name);
+        edit.putString("speed", currentSpeed.toString());
+        edit.apply();
+        // }
 
         return speed.toString();
     }
 
+    public Boolean Noruns() {
+        if (speed == 0.0) {
+            return true;
+        }
+        return false;
+    }
 }

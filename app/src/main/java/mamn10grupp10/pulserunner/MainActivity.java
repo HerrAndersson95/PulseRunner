@@ -61,12 +61,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
-
-
-
     //PERMISSION CHECK START TO FIN
     private boolean hasPermissions(){
         int res = 0;
