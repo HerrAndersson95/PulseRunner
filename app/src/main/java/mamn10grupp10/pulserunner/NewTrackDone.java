@@ -95,7 +95,7 @@ public class NewTrackDone extends AppCompatActivity {
             String fileName = nameOfTrack.getText().toString() + "  -  " + time + "\nDATE:  "+ timeStamp;
             fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
             fileManager.saveSpeed(nameOfTrack.getText().toString(),avgSpeed);
-            Toast.makeText(this,nameOfTrack.getText().toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Your run is saved",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

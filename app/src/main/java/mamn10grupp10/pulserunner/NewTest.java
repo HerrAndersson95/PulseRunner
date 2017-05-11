@@ -27,16 +27,17 @@ public class NewTest extends AppCompatActivity {
         setContentView(R.layout.activity_new_test);
         textv = (TextView)findViewById(R.id.read);
             fm = new FileManager(this);
-        textv.setText(" Your best track : " + fm.DisplayNameOfRoute()+ " \n speed:" + fm.DisplaySpeed());
 
-        if(fm.Noruns()) {
+        if(getFilesDir().list().length == 0) {
             /* No run **/
-          mediaPlayer = MediaPlayer.create(this,R.raw.fail1);
+            textv.setText("You have to start a track");
+            mediaPlayer = MediaPlayer.create(this,R.raw.fail1);
             mediaPlayer.start();
         }else {
             /* Winning music  **/
-         mediaPlayer = MediaPlayer.create(this,R.raw.win);
-          mediaPlayer.start();
+            textv.setText(" Your best track : " + fm.DisplayNameOfRoute()+ " \n speed:" + fm.DisplaySpeed());
+            mediaPlayer = MediaPlayer.create(this,R.raw.win);
+            mediaPlayer.start();
         }
     }
 }

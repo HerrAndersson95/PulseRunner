@@ -24,12 +24,10 @@ import android.content.SharedPreferences;
 public class FileManager {
     private Context context;
     SharedPreferences sp;
-    double speed;
 
     public FileManager(Context context) {
         this.context = context;
         sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
-        speed = 0.0;
     }
 
 
@@ -107,21 +105,14 @@ public class FileManager {
 
     /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
     public void saveSpeed(String name,double currentSpeed) {
-        if(currentSpeed <speed) {
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putString("name",name);
-        edit.putString("speed", Double.toString(currentSpeed));
-            edit.apply();
-        edit.commit();
-        speed = currentSpeed;
+       double prespeed = Double.parseDouble(sp.getString("speed", ""));
+        int retrival = Double.compare(currentSpeed, prespeed);
+        if(  retrival > 0) {
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("name", name);
+            edit.putString("speed", Double.toString(currentSpeed));
+            //edit.apply();
+            edit.commit();
         }
-
-    }
-/*Om man inte har kört någor run */
-    public Boolean Noruns() {
-        if (speed == 0.0) {
-            return true;
-        }
-        return false;
     }
 }
