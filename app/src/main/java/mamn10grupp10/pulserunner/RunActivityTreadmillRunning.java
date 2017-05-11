@@ -338,8 +338,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         return bd.doubleValue();
     }
 
-
-
     //Proximity Sensor
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
@@ -363,14 +361,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             }
         }
     }
-
-
-
-
-
-
-
-
 
     //GPS STARTS HERE
     protected synchronized void buildGoogleApiClient() {

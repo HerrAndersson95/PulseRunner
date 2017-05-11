@@ -94,8 +94,8 @@ public class NewTrackDone extends AppCompatActivity {
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
             String fileName = nameOfTrack.getText().toString() + "  -  " + time + "\nDATE:  "+ timeStamp;
             fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
-            fileManager.saveSpeed(avgSpeed,nameOfTrack.getText().toString());
-            Toast.makeText(this,"Saved name of the route",Toast.LENGTH_LONG).show();
+            fileManager.saveSpeed(nameOfTrack.getText().toString(),avgSpeed);
+            Toast.makeText(this,nameOfTrack.getText().toString(),Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

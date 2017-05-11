@@ -24,7 +24,7 @@ import android.content.SharedPreferences;
 public class FileManager {
     private Context context;
     SharedPreferences sp;
-    Double speed;
+    double speed;
 
     public FileManager(Context context) {
         this.context = context;
@@ -98,27 +98,26 @@ public class FileManager {
 
     public String DisplayNameOfRoute() {
         return sp.getString("name", "");
-
     }
 
     public String DisplaySpeed() {
-
         return sp.getString("speed", "");
 
     }
 
     /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
-    public String saveSpeed(Double currentSpeed, String name) {
-        //if(currentSpeed <speed) {
+    public void saveSpeed(String name,double currentSpeed) {
+        if(currentSpeed <speed) {
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("route", name);
-        edit.putString("speed", currentSpeed.toString());
-        edit.apply();
-        // }
+        edit.putString("name",name);
+        edit.putString("speed", Double.toString(currentSpeed));
+            edit.apply();
+        edit.commit();
+        speed = currentSpeed;
+        }
 
-        return speed.toString();
     }
-
+/*Om man inte har kört någor run */
     public Boolean Noruns() {
         if (speed == 0.0) {
             return true;
