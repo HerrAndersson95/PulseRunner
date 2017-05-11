@@ -124,6 +124,7 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
                         displayTitle.setText("Running");
                         stop.setVisibility(View.VISIBLE);
                         finish.setVisibility(View.VISIBLE);
+                        totDist = 0;
                     }
                     String elapsedTime = stopwatch.getTimeElapsedAsString();
                     long elapsedTimeLong = stopwatch.getTimeElapsedAsLong();
@@ -168,6 +169,7 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     public void onPauseAndContinue(){
         if(proximityPaused){
             if(!onOffTime.isChecked()){
+                proximityPaused = false;
                 onOffTime.setChecked(true);
                 stopwatch.resume();
                     //setVibPattern(vibPerc);

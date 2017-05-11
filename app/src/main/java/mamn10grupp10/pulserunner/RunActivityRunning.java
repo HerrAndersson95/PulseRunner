@@ -236,6 +236,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     public void onPauseAndContinue(){
         if(proximityPaused){
             if(!onOffTime.isChecked()){
+                proximityPaused = false;
                 onOffTime.setChecked(true);
                 stopwatch.resume();
                 //setVibPattern(vibPerc);
