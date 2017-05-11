@@ -59,8 +59,8 @@ public class RunActivityFinish extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         String[] parts = trackName.split("-");
         trackName = parts[0];
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        String fileName = trackName + "- " + time + " - " + timeStamp;
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
+        String fileName = trackName + "- " + time + "\nDATE:  "+ timeStamp;
         fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
         Toast.makeText(this,"Saved route: "+fileName,Toast.LENGTH_LONG).show();
         startActivity(intent);
