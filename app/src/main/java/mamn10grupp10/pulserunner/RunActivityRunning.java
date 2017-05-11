@@ -168,39 +168,39 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     handler.postDelayed(this, 100);
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
                         logDistances.add(totDist);
-                        double compare = compareTrack.get(counter);
+                        if(counter < compareTrack.size()){
+                            double compare = compareTrack.get(counter);
 
                         /*Vad är detta???*/
-                        //double distDiff = manager.getDistanceDifference(a,b);
+                            //double distDiff = manager.getDistanceDifference(a,b);
                         /*Bör det ej vara:*/
-                        double distDiff = totDist - compare;
-                        distDiff = distDiff*100;
-                        distDiff = Math.round(distDiff);
-                        distDiff = distDiff/100;
-                        if (distDiff <0){
-                            displayValue.setTextColor(Color.argb(188, 121, 32, 63));
-                            displayValue.setText("- " + Math.abs(distDiff) + " m");
+                            double distDiff = totDist - compare;
+                            distDiff = distDiff*100;
+                            distDiff = Math.round(distDiff);
+                            distDiff = distDiff/100;
+                            if (distDiff <0){
+                                displayValue.setTextColor(Color.argb(188, 121, 32, 63));
+                                displayValue.setText("- " + Math.abs(distDiff) + " m");
 
+                            }else{
+                                displayValue.setTextColor(Color.argb(188, 97, 162, 108));
+                                displayValue.setText("+ " + (distDiff) + " m");
+                            }
+                            double vibPerc = totDist/compare;
+                            vibPerc = vibPerc*100;
+                            vibPerc = Math.round(vibPerc);
+                            vibPerc = vibPerc/100;
+                            StringBuilder sb = new StringBuilder();
+                            sb.append("Distance you've ran: "+totDist+" m\n");
+                            sb.append("Distance other track: "+compare+" m\n");
+                            sb.append("Percentage speed: "+vibPerc);
+                            twInfo.setText(sb.toString());
+                            setVibPattern(vibPerc);
+                            counter++;
                         }else{
-                            displayValue.setTextColor(Color.argb(188, 97, 162, 108));
-                            displayValue.setText("+ " + (distDiff) + " m");
+                            //OH NO!
                         }
-                        //Onödiga?
-                        /*
-                        a -= 1;
-                        b += 3;
-                        */
-                        double vibPerc = totDist/compare;
-                        vibPerc = vibPerc*100;
-                        vibPerc = Math.round(vibPerc);
-                        vibPerc = vibPerc/100;
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("Distance you've ran: "+totDist+" m\n");
-                        sb.append("Distance other track: "+compare+" m\n");
-                        sb.append("Percentage speed: "+vibPerc);
-                        twInfo.setText(sb.toString());
-                        setVibPattern(vibPerc);
-                        counter++;
+
                     }
                 }
             }
