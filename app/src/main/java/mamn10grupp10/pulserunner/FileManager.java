@@ -12,10 +12,8 @@ import java.io.InputStreamReader;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import android.content.SharedPreferences;
-
 
 /**
  * Created by annelinegjersem on 2017-05-07.
@@ -24,10 +22,11 @@ import android.content.SharedPreferences;
 public class FileManager {
     private Context context;
     SharedPreferences sp;
-
+    double prespeed =0;
     public FileManager(Context context) {
         this.context = context;
         sp = context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
+
     }
 
 
@@ -99,20 +98,29 @@ public class FileManager {
     }
 
     public String DisplaySpeed() {
-        return sp.getString("speed", "");
+        return sp.getString("speed","");
 
     }
 
-    /* Sparar  snabbaste hastighet i sharedpreferences och returner hastigheten i String*/
-    public void saveSpeed(String name,double currentSpeed) {
-       double prespeed = Double.parseDouble(sp.getString("speed", ""));
-        int retrival = Double.compare(currentSpeed, prespeed);
-        if(  retrival > 0) {
-            SharedPreferences.Editor edit = sp.edit();
-            edit.putString("name", name);
-            edit.putString("speed", Double.toString(currentSpeed));
-            //edit.apply();
-            edit.commit();
-        }
+/*spara högst hastighet*/
+    public void saveSpeed(String name,double currentSpeed){
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("name", name);
+        edit.putString("speed", Double.toString(currentSpeed));
+        edit.commit();
+    }
+
+    public void saveDistance(String name, double totaldistance){
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("nameofRoute", name);
+        edit.putString("distance", Double.toString(totaldistance));
+        edit.commit();
+    }
+    public String DisplayNameofRouteDistance(){
+        return sp.getString("nameofRoute","");
+    }
+
+    public String DisplayTotalDistance(){
+        return sp.getString("distance", "");
     }
 }

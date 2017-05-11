@@ -25,6 +25,8 @@ public class NewTrackDone extends AppCompatActivity {
     TextView tw;
     double totSec,totDist;
     double avgSpeed;
+    int totalfiles = 0;
+
 
 
     @Override
@@ -90,20 +92,37 @@ public class NewTrackDone extends AppCompatActivity {
     }
 
     public void onClickSave(View v){
-        if(!nameOfTrack.getText().toString().isEmpty()){
+        if(!nameOfTrack.getText().toString().isEmpty()) {
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
-            String fileName = nameOfTrack.getText().toString() + "  -  " + time + "\nDATE:  "+ timeStamp;
-            fileManager.writeFile(fileName,fileManager.creatStringFile(newTrackList));
-            fileManager.saveSpeed(nameOfTrack.getText().toString(),avgSpeed);
-            Toast.makeText(this,"Your run is saved",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            String spname = nameOfTrack.getText().toString();
+            String fileName = spname + "  -  " + time + "\nDATE:  " + timeStamp;
+            fileManager.writeFile(fileName, fileManager.creatStringFile(newTrackList));
+
+            Toast.makeText(this, "previus speed "+ fileManager.DisplaySpeed() +"new speed"+ avgSpeed, Toast.LENGTH_LONG).show();
+            if(totalfiles == 0 ) {
+                fileManager.saveSpeed(spname, avgSpeed);
+                fileManager.saveDistance(spname, totDist);
+                totalfiles++;
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return;
+            }
+           if(avgSpeed> Double.parseDouble(fileManager.DisplaySpeed())) {
+                fileManager.saveSpeed(spname, avgSpeed);
+            }
+
+            if(totDist> Double.parseDouble(fileManager.DisplayTotalDistance()))
+                fileManager.saveDistance(spname,totDist);
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+        totalfiles++;
         }
         //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
         //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
         //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
 
-
     }
 
-}
+
