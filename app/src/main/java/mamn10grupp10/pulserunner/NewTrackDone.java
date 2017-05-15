@@ -49,6 +49,7 @@ public class NewTrackDone extends AppCompatActivity {
         avgSpeed = avgSpeed*100;
         avgSpeed = Math.round(avgSpeed);
         avgSpeed = avgSpeed/100;
+        avgSpeed = avgSpeed*3.6;
         distKm = distKm*100;
         distKm = Math.round(distKm);
         distKm = distKm/100;
@@ -58,7 +59,7 @@ public class NewTrackDone extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         sb.append(time + "\n");
         sb.append("Distance: "+distKm+" km\n");
-        sb.append("Average speed: "+avgSpeed+" m/s\n");
+        sb.append("Average speed: "+avgSpeed+" km/h\n");
 
         tw.setText(sb.toString());
     }

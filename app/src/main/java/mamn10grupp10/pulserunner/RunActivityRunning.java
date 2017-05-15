@@ -110,6 +110,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     private TextView twInfo;
 
     private Runnable updater;
+    private boolean usuck;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +129,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         proximityPaused = false;
 
         vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
+        usuck = false;
         stopwatch = new StopWatch();
         handler = new Handler();
         manager = new CalculationManager();
@@ -340,16 +341,25 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     /*The vib pattern will be set accordingly to the percentage of the track
     * Compares the saved tracks meters towards what you've ran yourself*/
     public void setVibPattern(double percDiff) {
-        if(percDiff>1.40){
+        if(percDiff>1.20){
             vib.vibrate(none,0);
-        }else if(percDiff>1.20){
+            usuck = false;
+        }else if(percDiff>1.15){
             vib.vibrate(close,0);
+            usuck = false;
         }else if(percDiff >1.10){
             vib.vibrate(closeer,0);
+            usuck = false;
         }else if(percDiff>0.80){
             vib.vibrate(closest,0);
+            usuck = false;
         }else {
             vib.vibrate(none,0);
+            usuck = true;
+        }
+        if (usuck){
+            mediaPlayer = MediaPlayer.create(this,R.raw.hurry);
+            mediaPlayer.start();
         }
     }
 

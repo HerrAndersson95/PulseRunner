@@ -78,9 +78,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
 
 
     /*Varibles to send*/
-    private int distance;
+    private double distance;
     private int hours,mins,ms;
     MediaPlayer mediaPlayer;
+    private TextView twDist;
 
     //Variables for GPS
     protected static final String TAG = "MainActivity";
@@ -100,7 +101,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     protected Location oldmCurrentLocation;
     protected long mCurrentLocationTime;
     protected long oldmCurrentLocationTime;
-    int counter = 0;
+    double counter = -0.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +131,12 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         stop = (Button) findViewById(R.id.btnStop);
         finish = (Button) findViewById(R.id.btnFinish);
         tw = (TextView) findViewById(R.id.avgSpeed);
+        twDist = (TextView) findViewById(R.id.distanceTxt);
         Intent intent = getIntent();
         speed = intent.getIntExtra("speed",0);
         tw.setText(speed + " km/h");
+        twDist.setText("Distance: 0 km/h");
+
 
 
         updater = new Runnable() {
@@ -152,7 +156,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
 
                     //CALLED EVERY TIMEUNIT SECONDS
                     if((elapsedTimeLong/100) % (timeunit*10) == 0){
-
                         System.out.println(mySpeedSmooth);
                         myAvgSpeed += mySpeedSmooth;
                         totMeters += Math.round(Math.round((mySpeedSmooth/3.6) * timeunit));
@@ -163,8 +166,19 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                         vibPerc = Math.round(vibPerc);
                         vibPerc = vibPerc/100;
                         setVibPattern(vibPerc);
-                        tw.setText("You ran: "+totDist+"\nYou should've: "+compare+"\nDiffPerc: "+vibPerc);
-                        counter++;
+                        if(totDist > 1000){
+                            double dist = totDist*10;
+                            dist = Math.round(dist);
+                            dist = dist/10;
+
+                            twDist.setText("Distance: "+dist+" km");
+
+                        }else {
+                            twDist.setText("Distance: "+ totDist+" m");
+                        }
+                        /*DO NOT REMOVE COMMENTED TEXT, IS FOR DEBUGGING*/
+                        //tw.setText("You ran: "+totDist+"\nYou should've: "+compare+"\nDiffPerc: "+vibPerc + " counter: "+counter);
+                        counter = counter + 0.5;
                     }
                     displayValue.setText(Double.toString(mySpeedSmooth) + " km/h");
                 }
@@ -246,16 +260,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         Intent intent = new Intent(this, RunActivityTreadmillFinish.class);
        /*Change these to the right value when we've got the GPS part etc...*/
         myAvgSpeed = round(myAvgSpeed / stopwatch.getTimeElapsedAsLong());
-
-        hours = 13;
-        mins = 37;
-        ms = 99;
-        distance = (int)7035.50;
+        distance = totDist;
         intent.putExtra("speed",speed);
-        intent.putExtra("myAvgSpeed",myAvgSpeed);
-        intent.putExtra("hours",hours);
-        intent.putExtra("mins",mins);
-        intent.putExtra("ms",ms);
+        intent.putExtra("mySpeedSmooth",mySpeedSmooth);
+        intent.putExtra("time",displayTime.getText().toString());
         intent.putExtra("distance",distance);
         onPause();
         startActivity(intent);

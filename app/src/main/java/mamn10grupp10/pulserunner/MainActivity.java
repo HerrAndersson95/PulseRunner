@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed(){
+
+    }
+
     public void onClickNewTrack(View v){
         if (hasPermissions()){
             Intent intent = new Intent(this, NewTrackActivity.class);
