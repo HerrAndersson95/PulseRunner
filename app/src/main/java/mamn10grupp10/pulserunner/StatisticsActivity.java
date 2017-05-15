@@ -37,11 +37,11 @@ public class StatisticsActivity extends AppCompatActivity {
                 distancekm= Math.round(distancekm);
                 distancekm = distancekm/100;
 
-                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  Speed " +
-                        fm.DisplaySpeed() +"km/h "+  "\n Distance: " +distancekm +"km");
+                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  \n   Speed " +
+                        fm.DisplaySpeed() +"km/h "+  "\n  \n  Distance: " +distancekm +"km");
                  } else{
-                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  Speed " +
-                        fm.DisplaySpeed() +"km/h "+  "\n Distance: " +fm.DisplayTotalDistance() +"m");
+                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  \n   Speed " +
+                        fm.DisplaySpeed() +"km/h "+  "\n  \n  Distance: " +fm.DisplayTotalDistance() +"m");
             }
 
 
