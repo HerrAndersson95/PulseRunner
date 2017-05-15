@@ -92,7 +92,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/colorTransparentRed"
             android:onClick="onClickStop"
-            android:text="STOP"
+            android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"

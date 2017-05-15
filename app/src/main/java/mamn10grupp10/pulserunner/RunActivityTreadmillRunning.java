@@ -266,6 +266,8 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         intent.putExtra("time",displayTime.getText().toString());
         intent.putExtra("distance",distance);
         onPause();
+        mediaPlayer.stop();
+        vib.cancel();
         startActivity(intent);
     }
 
@@ -313,6 +315,8 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 onPause();
+                mediaPlayer.stop();
+                vib.cancel();
                 startActivity(popUpintent);
             }
         });
@@ -505,6 +509,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             stopLocationUpdates();
         }
         vib.cancel();
+        mediaPlayer.stop();
     }
 
     @Override
@@ -513,6 +518,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         sm.unregisterListener(this);
         mGoogleApiClient.disconnect();
         vib.cancel();
+        mediaPlayer.stop();
     }
 
     /**

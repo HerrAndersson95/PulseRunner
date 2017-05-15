@@ -282,6 +282,8 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         builder.setMessage("Your current track will be lost, are you sure?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                mediaPlayer.stop();
+                vib.cancel();
                 RunActivityRunning.super.onBackPressed();
             }
         });
@@ -306,6 +308,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         intent.putExtra("bundle",b);
         intent.putExtra("time",displayTime.getText().toString());
         vib.cancel();
+        mediaPlayer.stop();
         startActivity(intent);
     }
 
@@ -550,6 +553,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
             stopLocationUpdates();
         }
         vib.cancel();
+        mediaPlayer.stop();
     }
 
     @Override
@@ -558,6 +562,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         sm.unregisterListener(this);
         mGoogleApiClient.disconnect();
         vib.cancel();
+        mediaPlayer.stop();
     }
 
     /**

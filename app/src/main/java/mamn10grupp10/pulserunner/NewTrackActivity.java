@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +50,9 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     TextView displayValue;
     TextView Wave;
 
+    MediaPlayer mediaPlayer;
+    Vibrator vib;
+
     ToggleButton onOffTime;
     Button stop;
     Button finish;
@@ -59,7 +63,6 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
 
     int timeunit;
     double totDist;
-    Vibrator vibrator;
     ArrayList<Double> newtrack;
 
     //Variables for proximity
@@ -115,7 +118,7 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
         stop = (Button) findViewById(R.id.btnStop);
         finish = (Button) findViewById(R.id.btnFinish);
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         sm = (SensorManager)getSystemService(SENSOR_SERVICE);   //skapa manager för sensorer
         prox = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -217,6 +220,8 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
         builder.setMessage("Your current track will be lost, are you sure?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                mediaPlayer.stop();
+                vib.cancel();
                 NewTrackActivity.super.onBackPressed();
             }
         });
@@ -230,6 +235,8 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
 
     public void onClickFinish(View v){
         stopwatch.pause();
+        mediaPlayer.stop();
+        vib.cancel();
         Intent intent = new Intent(this, NewTrackDone.class);
         double totSec = stopwatch.getTimeElapsedAsLong() /1000;
         intent.putExtra("newtrack",newtrack);
@@ -302,8 +309,14 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
                     //System.out.println("HAND OVER PROX");
                     if(proximityPaused){
                         proximityPaused = false;
+                        vib.vibrate(200);
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.pause);
+                        mediaPlayer.start();
                     } else {
                         proximityPaused = true;
+                        vib.vibrate(400);
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.start);
+                        mediaPlayer.start();
                     }
                     onPauseAndContinue();
                 }
