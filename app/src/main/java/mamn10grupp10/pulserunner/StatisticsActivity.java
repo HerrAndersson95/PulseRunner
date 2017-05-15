@@ -32,26 +32,17 @@ public class StatisticsActivity extends AppCompatActivity {
             mediaPlayer.start();
         }else {
             /* Winning music  **/
-            if(Integer.parseInt(fm.DisplayTotalDistance()) > 1000) {
-                double distancekm = Integer.parseInt(fm.DisplayTotalDistance())*100;
-                distancekm= Math.round(distancekm);
-                distancekm = distancekm/100;
-
-                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  \n   Speed " +
-                        fm.DisplaySpeed() +"km/h "+  "\n  \n  Distance: " +distancekm +"km");
-                 } else{
-                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  \n   Speed " +
-                        fm.DisplaySpeed() +"km/h "+  "\n  \n  Distance: " +fm.DisplayTotalDistance() +"m");
+                textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n \n   Speed " +
+                        fm.DisplaySpeed() +" km/h "+  "\n \n Distance: " +fm.DisplayTotalDistance() +" m");
             }
-
-
             mediaPlayer = MediaPlayer.create(this,R.raw.win1);
             mediaPlayer.start();
         }
-    }
-    public void TestSave(View v) {
-        Intent intent = new Intent(this, NewTest.class);
-        startActivity(intent);
-    }
 }
+/** This did not work
+ * if(Integer.parseInt(fm.DisplayTotalDistance()) > 1000) { 
+ *  double distancekm = Integer.parseInt(fm.DisplayTotalDistance())*100; 
+ *  distancekm= Math.round(distancekm);     distancekm = distancekm/100;
+textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n  Speed " + 
+fm.DisplaySpeed() +"km/h "+  "\n Distance: " +distancekm +"km");  } else{ */
 

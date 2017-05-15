@@ -105,7 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.65"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:cacheColorHint="@color/colorAccent"
             android:choiceMode="singleChoice"
+            android:foregroundTint="@color/colorTransparentGreen"
             android:listSelector="@android:color/darker_gray" />
 
     </LinearLayout>

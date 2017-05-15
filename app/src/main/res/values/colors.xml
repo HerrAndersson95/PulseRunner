@@ -3,10 +3,10 @@
     <color name="colorPrimary">#d23196bd</color>
     <color name="colorPrimaryDark">#c91c627d</color>
     <color name="colorAccent">#a4c6f9</color>
-    <color name="colorTransparentPrimary">#972a7c9b</color>
+    <color name="colorTransparentPrimary">#97409dbf</color>
     <color name="colorTransparentPrimaryDark">#bc206179</color>
     <color name="colorTransparentRed">#bc79203f</color>
     <color name="colorTransparentYellow">#bcb5b331</color>
-    <color name="colorTransparentGreen">#bc61a26c</color>
+    <color name="colorTransparentGreen">#bc50b762</color>
     <color name="colorTransparentDark">#bc5a6265</color>
 </resources>
