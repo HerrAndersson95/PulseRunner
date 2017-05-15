@@ -32,9 +32,8 @@ public class StatisticsActivity extends AppCompatActivity {
             mediaPlayer.start();
         }else {
             /* Winning music  **/
-            textv.setText(" Highest speed in route: " + fm.DisplayNameOfRoute()+ "\n with speed" +
-                    fm.DisplaySpeed() +"m/s " +"Longest distance in route  "+
-                    fm.DisplayNameofRouteDistance() + "\n with the distance" +fm.DisplayTotalDistance() +"m");
+            textv.setText(" Latest route: " + fm.DisplayNameOfRoute()+ "\n with speed" +
+                    fm.DisplaySpeed() +"m/s " +  "\n with the distance" +fm.DisplayTotalDistance() +"m");
 
             mediaPlayer = MediaPlayer.create(this,R.raw.win1);
             mediaPlayer.start();

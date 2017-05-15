@@ -98,8 +98,8 @@ public class NewTrackDone extends AppCompatActivity {
             String fileName = spname + "  -  " + time + "\nDATE:  " + timeStamp;
             fileManager.writeFile(fileName, fileManager.creatStringFile(newTrackList));
 
-            Toast.makeText(this, "previus speed "+ fileManager.DisplaySpeed() +"new speed"+ avgSpeed, Toast.LENGTH_LONG).show();
-            if(totalfiles == 0 ) {
+            Toast.makeText(this, "previus speed " + fileManager.DisplaySpeed() + "new speed" + avgSpeed, Toast.LENGTH_LONG).show();
+            if (totalfiles == 0) {
                 fileManager.saveSpeed(spname, avgSpeed);
                 fileManager.saveDistance(spname, totDist);
                 totalfiles++;
@@ -107,17 +107,19 @@ public class NewTrackDone extends AppCompatActivity {
                 startActivity(intent);
                 return;
             }
-           if(avgSpeed> Double.parseDouble(fileManager.DisplaySpeed())) {
+            if (Double.compare(avgSpeed, Double.parseDouble(fileManager.DisplaySpeed())) > 0) {
                 fileManager.saveSpeed(spname, avgSpeed);
+                System.out.print(spname + avgSpeed);
             }
 
-            if(totDist> Double.parseDouble(fileManager.DisplayTotalDistance()))
-                fileManager.saveDistance(spname,totDist);
-
+            if (Double.compare(totDist, Double.parseDouble(fileManager.DisplayTotalDistance())) > 0)
+                fileManager.saveDistance(spname, totDist);
+            System.out.print(spname + totDist);
+        }
+        totalfiles++;
+        
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            }
-        totalfiles++;
         }
         //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
         //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");

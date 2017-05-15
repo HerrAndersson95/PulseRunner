@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setAutoStart(true);
         viewFlipper.setFlipInterval(5000);
         viewFlipper.startFlipping();
+
     }
 
     public void onClickRun(View v){

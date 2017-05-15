@@ -47,6 +47,7 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     TextView displayTitle;
     TextView displayTime;
     TextView displayValue;
+    TextView Wave;
 
     ToggleButton onOffTime;
     Button stop;
@@ -91,6 +92,10 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_track);
+        Wave = (TextView) findViewById(R.id.wave);
+        if(getFilesDir().list().length == 0) {
+            Wave.setText("To start and pause wave in front off your screen");
+        }
 
         timeunit = 5;
         newtrack = new ArrayList<Double>();
