@@ -53,6 +53,9 @@ public class NewTrackDone extends AppCompatActivity {
         distKm = distKm*100;
         distKm = Math.round(distKm);
         distKm = distKm/100;
+        avgSpeed = avgSpeed*10;
+        avgSpeed = Math.round(avgSpeed);
+        avgSpeed = avgSpeed/10;
 
         newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
         tw = (TextView) findViewById(R.id.infoText);

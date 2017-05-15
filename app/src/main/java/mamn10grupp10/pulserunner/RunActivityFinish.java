@@ -36,13 +36,14 @@ public class RunActivityFinish extends AppCompatActivity {
         distance = newTrackList.get(newTrackList.size()-1);
         double distKm = distance/1000;
         double avgSpeed = distance/totSec;
-        avgSpeed = avgSpeed*100;
+        avgSpeed = avgSpeed*100*3.6;
         avgSpeed = Math.round(avgSpeed);
         avgSpeed = avgSpeed/100;
         distKm = distKm*100;
         distKm = Math.round(distKm);
         distKm = distKm/100;
-
+        //Debugging
+        /*
         String infoTxt = "My average speed was: " + avgSpeed +" m/s"+ "\n"+
                 "Distance: "+distKm+" km"+"\n"+
                 "Total time: "+time+"\nLogs:\n";
@@ -52,6 +53,11 @@ public class RunActivityFinish extends AppCompatActivity {
             sb.append(mets + " - ");
         }
         tw.setText(sb.toString());
+        */
+        tw.setText("My average speed was: " + avgSpeed +" km/h"+ "\n"+
+                "Distance: "+distKm+" km"+"\n"+
+                "Total time: "+time);
+
     }
 
     public void onClickDone(View v){

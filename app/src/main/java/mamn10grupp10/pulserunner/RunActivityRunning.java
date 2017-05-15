@@ -357,7 +357,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
             vib.vibrate(none,0);
             usuck = true;
         }
-        if (usuck){
+        if (usuck && counter > 4){
             mediaPlayer = MediaPlayer.create(this,R.raw.hurry);
             mediaPlayer.start();
         }
