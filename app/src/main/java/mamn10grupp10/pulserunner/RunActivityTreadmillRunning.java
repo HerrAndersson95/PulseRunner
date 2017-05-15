@@ -286,16 +286,10 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
             vib.vibrate(none,0);
         }else if(percDiff>0.9){
             vib.vibrate(closest,0);
-            mediaPlayer = MediaPlayer.create(this,R.raw.highest);
-            mediaPlayer.start();
         }else if(percDiff >0.80){
             vib.vibrate(closeer,0);
-            mediaPlayer = MediaPlayer.create(this,R.raw.higher);
-            mediaPlayer.start();
         }else if(percDiff>0.70){
             vib.vibrate(close,0);
-            mediaPlayer = MediaPlayer.create(this,R.raw.high);
-            mediaPlayer.start();
         }else {
             vib.vibrate(none,0);
         }
@@ -353,8 +347,14 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                     //System.out.println("HAND OVER PROX");
                     if(proximityPaused){
                         proximityPaused = false;
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.pause);
+                        mediaPlayer.start();
+                        vib.vibrate(200);
                     } else {
                         proximityPaused = true;
+                        vib.vibrate(400);
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.start);
+                        mediaPlayer.start();
                     }
                     onPauseAndContinue();
                 }

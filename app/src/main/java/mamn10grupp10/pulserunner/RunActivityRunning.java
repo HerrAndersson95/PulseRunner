@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -67,6 +68,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     private final long[] closest = {0, 200, 200};
     private final long[] superBehind = {0, 200, 5000};
     private final long[] none = {0,0,0};
+    private MediaPlayer mediaPlayer;
 
     //Variables for sensor
     private SensorManager sm;
@@ -383,8 +385,14 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                     //System.out.println("HAND OVER PROX");
                     if(proximityPaused){
                         proximityPaused = false;
+                        vib.vibrate(200);
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.pause);
+                        mediaPlayer.start();
                     } else {
                         proximityPaused = true;
+                        vib.vibrate(400);
+                        mediaPlayer =  MediaPlayer.create(this,R.raw.start);
+                        mediaPlayer.start();
                     }
                     onPauseAndContinue();
                 }
