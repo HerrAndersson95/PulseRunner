@@ -307,8 +307,6 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         b.putSerializable("newtrack",logDistances);
         intent.putExtra("bundle",b);
         intent.putExtra("time",displayTime.getText().toString());
-        vib.cancel();
-        mediaPlayer.stop();
         startActivity(intent);
     }
 

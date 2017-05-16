@@ -266,8 +266,6 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         intent.putExtra("time",displayTime.getText().toString());
         intent.putExtra("distance",distance);
         onPause();
-        mediaPlayer.stop();
-        vib.cancel();
         startActivity(intent);
     }
 

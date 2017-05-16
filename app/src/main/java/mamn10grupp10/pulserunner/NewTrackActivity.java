@@ -235,8 +235,6 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
 
     public void onClickFinish(View v){
         stopwatch.pause();
-        mediaPlayer.stop();
-        vib.cancel();
         Intent intent = new Intent(this, NewTrackDone.class);
         double totSec = stopwatch.getTimeElapsedAsLong() /1000;
         intent.putExtra("newtrack",newtrack);
