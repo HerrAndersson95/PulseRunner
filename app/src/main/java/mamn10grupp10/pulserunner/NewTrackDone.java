@@ -26,6 +26,7 @@ public class NewTrackDone extends AppCompatActivity {
     double totSec,totDist;
     double avgSpeed;
     int totalfiles = 0;
+    double distKm;
 
 
 
@@ -44,7 +45,7 @@ public class NewTrackDone extends AppCompatActivity {
         b = intent.getBundleExtra("bundle");
         time = intent.getStringExtra("time");
 
-        double distKm = totDist/1000;
+        distKm = totDist/1000;
         avgSpeed = totDist/totSec;
         avgSpeed = avgSpeed*100;
         avgSpeed = Math.round(avgSpeed);
@@ -113,21 +114,17 @@ public class NewTrackDone extends AppCompatActivity {
             }
             if (Double.compare(avgSpeed, Double.parseDouble(fileManager.DisplaySpeed())) > 0) {
                 fileManager.saveSpeed(spname, avgSpeed);
-                System.out.print(spname + avgSpeed);
             }
 
             if (Double.compare(totDist, Double.parseDouble(fileManager.DisplayTotalDistance())) > 0)
-                fileManager.saveDistance(spname, totDist);
-            System.out.print(spname + totDist);
+                fileManager.saveDistance(spname, distKm);
+
         }
         totalfiles++;
         
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
         }
-        //fileManager.writeFile(nameOfTrack.getText().toString()+" "+time+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
-        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ ","123");
-        //fileManager.writeFile(nameOfTrack.getText().toString()+"/ "+timeStamp,fileManager.creatStringFile(newTrackList));
 
     }
 
