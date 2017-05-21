@@ -215,12 +215,10 @@ public class NewTrackActivity extends AppCompatActivity implements GoogleApiClie
 
     public void onBackPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         //builder.setTitle("Save Or Not");
         builder.setMessage("Your current track will be lost, are you sure?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mediaPlayer.stop();
                 vib.cancel();
                 NewTrackActivity.super.onBackPressed();
             }

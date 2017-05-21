@@ -294,19 +294,25 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     public void setVibPattern(double percDiff) {
         if(percDiff>1){
             vib.vibrate(none,0);
+            usuck = false;
         }else if(percDiff>0.9){
             vib.vibrate(close,0);
+            usuck = false;
         }else if(percDiff >0.80){
             vib.vibrate(closeer,0);
+            usuck = false;
         }else if(percDiff>0.70){
             vib.vibrate(closest,0);
+            usuck = false;
         }else {
             vib.vibrate(none,0);
             vib.cancel();
+            usuck = true;
         }
         if (usuck && counter > 4){
             mediaPlayer = MediaPlayer.create(this,R.raw.hurry);
             mediaPlayer.start();
+            usuck = false;
         }
     }
 

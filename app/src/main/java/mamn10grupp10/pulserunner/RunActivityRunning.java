@@ -278,12 +278,10 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
 
     public void onBackPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         //builder.setTitle("Save Or Not");
         builder.setMessage("Your current track will be lost, are you sure?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mediaPlayer.stop();
                 vib.cancel();
                 RunActivityRunning.super.onBackPressed();
             }
@@ -315,16 +313,15 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
     * the current run. If Yes, the user will return to the main menu. If no, the uset till return
     * to the current run again and the time wont be reflected, since it is still running in
     * the background*/
-    public void createDialog() {
+    public void createDialog(){
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
         alertDlg.setMessage("Your current track will be lost, are you sure?");
         alertDlg.setCancelable(false);
-        final Intent popUpintent = new Intent(this, MainActivity.class);
+        final Intent popUpintent = new Intent(this, RunActivity.class);
 
         alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 startActivity(popUpintent);
             }
         });
@@ -362,6 +359,7 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
         if (usuck && counter > 4){
             mediaPlayer = MediaPlayer.create(this,R.raw.hurry);
             mediaPlayer.start();
+            usuck = false;
         }
     }
 

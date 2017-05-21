@@ -107,7 +107,7 @@ public class NewTrackDone extends AppCompatActivity {
             String fileName = spname + "  -  " + time + "\nDATE:  " + timeStamp;
             fileManager.writeFile(fileName, fileManager.creatStringFile(newTrackList));
 
-            Toast.makeText(this, "previus speed " + fileManager.DisplaySpeed() + "new speed" + avgSpeed, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Previous average speed: " + fileManager.DisplaySpeed() + "\n New average speed: " + avgSpeed, Toast.LENGTH_LONG).show();
             if (totalfiles == 0) {
                 fileManager.saveSpeed(spname, avgSpeed);
                 fileManager.saveDistance(spname, totDist);
