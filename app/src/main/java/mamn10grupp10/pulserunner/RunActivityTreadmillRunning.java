@@ -258,14 +258,14 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
 
     public void onClickFinish(View v){
         Intent intent = new Intent(this, RunActivityTreadmillFinish.class);
-       /*Change these to the right value when we've got the GPS part etc...*/
+        /*Change these to the right value when we've got the GPS part etc...*/
         myAvgSpeed = round(myAvgSpeed / stopwatch.getTimeElapsedAsLong());
         distance = totDist;
         intent.putExtra("speed",speed);
         intent.putExtra("mySpeedSmooth",mySpeedSmooth);
         intent.putExtra("time",displayTime.getText().toString());
         intent.putExtra("distance",distance);
-        onPause();
+
         startActivity(intent);
     }
 

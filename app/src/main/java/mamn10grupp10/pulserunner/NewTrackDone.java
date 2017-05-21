@@ -45,26 +45,30 @@ public class NewTrackDone extends AppCompatActivity {
         b = intent.getBundleExtra("bundle");
         time = intent.getStringExtra("time");
 
-        distKm = totDist/1000;
+
         avgSpeed = totDist/totSec;
-        avgSpeed = avgSpeed*100;
+        avgSpeed = avgSpeed*100*3.6;
         avgSpeed = Math.round(avgSpeed);
         avgSpeed = avgSpeed/100;
-        avgSpeed = avgSpeed*3.6;
+        distKm = totDist/1000;
         distKm = distKm*100;
         distKm = Math.round(distKm);
         distKm = distKm/100;
         avgSpeed = avgSpeed*10;
         avgSpeed = Math.round(avgSpeed);
         avgSpeed = avgSpeed/10;
-
         newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
         tw = (TextView) findViewById(R.id.infoText);
         StringBuilder sb = new StringBuilder();
-        sb.append(time + "\n");
-        sb.append("Distance: "+distKm+" km\n");
-        sb.append("Average speed: "+avgSpeed+" km/h\n");
-
+        if(distKm > 1){
+            sb.append(time + "\n");
+            sb.append("Distance: "+distKm+" km\n");
+            sb.append("Average speed: "+avgSpeed+" km/h\n");
+        }else {
+            sb.append(time + "\n");
+            sb.append("Distance: "+totDist+" m\n");
+            sb.append("Average speed: "+avgSpeed+" km/h\n");
+        }
         tw.setText(sb.toString());
     }
 
