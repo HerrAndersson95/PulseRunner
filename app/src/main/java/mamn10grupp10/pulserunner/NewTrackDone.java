@@ -54,12 +54,12 @@ public class NewTrackDone extends AppCompatActivity {
         distKm = distKm*100;
         distKm = Math.round(distKm);
         distKm = distKm/100;
-        avgSpeed = avgSpeed*10;
-        avgSpeed = Math.round(avgSpeed);
-        avgSpeed = avgSpeed/10;
         newTrackList = (ArrayList<Double>) b.getSerializable("newtrack");
         tw = (TextView) findViewById(R.id.infoText);
         StringBuilder sb = new StringBuilder();
+        if(avgSpeed< 0.01){
+            avgSpeed=0;
+        }
         if(distKm > 1){
             sb.append(time + "\n");
             sb.append("Distance: "+distKm+" km\n");
@@ -123,13 +123,15 @@ public class NewTrackDone extends AppCompatActivity {
             if (Double.compare(totDist, Double.parseDouble(fileManager.DisplayTotalDistance())) > 0)
                 fileManager.saveDistance(spname, distKm);
 
-        }
-        totalfiles++;
-        
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+
+            totalfiles++;
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
 
     }
+
+}
 
 

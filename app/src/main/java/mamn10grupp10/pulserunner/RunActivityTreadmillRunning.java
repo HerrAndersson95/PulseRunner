@@ -75,6 +75,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
     private final long[] closest = {0,200,200};
     private final long[] none = {0,0,0};
     private double vibPerc;
+    private boolean usuck;
 
 
     /*Varibles to send*/
@@ -112,7 +113,7 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         mySpeed = 0;
         mySpeedSmooth = 0;
         totDist = 0;
-
+        usuck = false;
         vibPerc = 0;
 
         sm = (SensorManager)getSystemService(SENSOR_SERVICE);   //skapa manager för sensorer
@@ -171,10 +172,11 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                             dist = Math.round(dist);
                             dist = dist/10;
 
-                            twDist.setText("Distance: "+dist+" km");
-
+                            //twDist.setText("Distance: "+dist+" km");
+                            twDist.setText("Distance: "+dist+" km \nPercentage: "+vibPerc);
                         }else {
-                            twDist.setText("Distance: "+ totDist+" m");
+                            //twDist.setText("Distance: "+ totDist+" m");
+                            twDist.setText("Distance: "+ totDist+" m\nPercentage: " + vibPerc);
                         }
                         /*DO NOT REMOVE COMMENTED TEXT, IS FOR DEBUGGING*/
                         //tw.setText("You ran: "+totDist+"\nYou should've: "+compare+"\nDiffPerc: "+vibPerc + " counter: "+counter);
@@ -293,13 +295,18 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
         if(percDiff>1){
             vib.vibrate(none,0);
         }else if(percDiff>0.9){
-            vib.vibrate(closest,0);
+            vib.vibrate(close,0);
         }else if(percDiff >0.80){
             vib.vibrate(closeer,0);
         }else if(percDiff>0.70){
-            vib.vibrate(close,0);
+            vib.vibrate(closest,0);
         }else {
             vib.vibrate(none,0);
+            vib.cancel();
+        }
+        if (usuck && counter > 4){
+            mediaPlayer = MediaPlayer.create(this,R.raw.hurry);
+            mediaPlayer.start();
         }
     }
 
