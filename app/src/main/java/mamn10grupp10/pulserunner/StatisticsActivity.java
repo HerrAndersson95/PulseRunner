@@ -33,7 +33,7 @@ public class StatisticsActivity extends AppCompatActivity {
         }else {
             /* Winning music  **/
                 textv.setText("Latest route: " + fm.DisplayNameOfRoute()+ " \n \n   Speed: " +
-                        fm.DisplaySpeed() +" km/h "+  "\n \n Distance: " +fm.DisplayTotalDistance() +" Km");
+                        fm.DisplaySpeed() +" km/h "+  "\n \n Distance: " +fm.DisplayTotalDistance() +" m");
             }
             mediaPlayer = MediaPlayer.create(this,R.raw.win1);
             mediaPlayer.start();
