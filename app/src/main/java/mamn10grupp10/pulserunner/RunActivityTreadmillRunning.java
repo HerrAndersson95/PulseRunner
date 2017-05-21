@@ -172,11 +172,11 @@ public class RunActivityTreadmillRunning extends AppCompatActivity implements Go
                             dist = Math.round(dist);
                             dist = dist/10;
 
-                            //twDist.setText("Distance: "+dist+" km");
-                            twDist.setText("Distance: "+dist+" km \nPercentage: "+vibPerc);
+                            twDist.setText("Distance: "+dist+" km");
+                            //twDist.setText("Distance: "+dist+" km \nPercentage: "+vibPerc);
                         }else {
-                            //twDist.setText("Distance: "+ totDist+" m");
-                            twDist.setText("Distance: "+ totDist+" m\nPercentage: " + vibPerc);
+                            twDist.setText("Distance: "+ totDist+" m");
+                            //twDist.setText("Distance: "+ totDist+" m\nPercentage: " + vibPerc);
                         }
                         /*DO NOT REMOVE COMMENTED TEXT, IS FOR DEBUGGING*/
                         //tw.setText("You ran: "+totDist+"\nYou should've: "+compare+"\nDiffPerc: "+vibPerc + " counter: "+counter);

@@ -194,9 +194,10 @@ public class RunActivityRunning extends AppCompatActivity implements GoogleApiCl
                             vibPerc = Math.round(vibPerc);
                             vibPerc = vibPerc/100;
                             StringBuilder sb = new StringBuilder();
-                            sb.append("Distance you've ran: "+totDist+" m\n");
-                            sb.append("Distance other track: "+compare+" m\n");
-                            sb.append("Percentage speed: "+vibPerc);
+                            sb.append("Distance: " +totDist + " m");
+                            //sb.append("Distance you've ran: "+totDist+" m\n");
+                            //sb.append("Distance other track: "+compare+" m\n");
+                            //sb.append("Percentage speed: "+vibPerc);
                             twInfo.setText(sb.toString());
                             setVibPattern(vibPerc);
                             counter++;
